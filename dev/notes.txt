@@ -3,7 +3,10 @@
 	- x frontend: take out welcome message edit  
 	- x backend: take out welcome message edit  
 - x welcome page to flashcards page
-- .. if backend down then graceful message
+- x if backend down then graceful message
+- x change currentuser file to 200 since it is not really an error
+
+
 - same styling for flashcards
 
 

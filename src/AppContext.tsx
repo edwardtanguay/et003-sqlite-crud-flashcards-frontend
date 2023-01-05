@@ -60,7 +60,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		(async () => {
 			try {
 				const user = (
-					await axios.get(`${backendUrl}/currentuser`, {
+					await axios.get(`${backendUrl}/get-current-user`, {
 						withCredentials: true,
 					})
 				).data;
