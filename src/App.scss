@@ -5,6 +5,17 @@ body {
 	color: #ccc;
 	font-family: sans-serif;
 	padding: 0 1rem;
+	animation: fadein .2s ease-in;
+
+	@keyframes fadein {
+		from {
+			opacity: 0;
+		}
+
+		to {
+			opacity: 1;
+		}
+	}
 
 	h1 {
 		color: rgb(209, 168, 85);
@@ -22,9 +33,11 @@ body {
 		padding: .3rem .5rem;
 		margin-bottom: 1rem;
 		border-radius: .2rem;
+
 		.inner {
 			display: flex;
 			gap: .5rem;
+
 			.messageText {
 				margin-top: .1rem;
 			}
@@ -63,6 +76,7 @@ body {
 				background-color: #222;
 				padding: .5rem;
 				width: 25rem;
+
 				.back {
 					color: tomato;
 					margin-bottom: .5rem;

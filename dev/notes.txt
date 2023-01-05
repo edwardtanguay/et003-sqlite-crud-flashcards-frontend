@@ -5,7 +5,9 @@
 - x welcome page to flashcards page
 - x if backend down then graceful message
 - x change currentuser file to 200 since it is not really an error
-
+- .. fix blink
+	- x don't show title 
+	- .. fade in
 
 - same styling for flashcards
 
