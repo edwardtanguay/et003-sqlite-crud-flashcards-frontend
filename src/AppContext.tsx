@@ -14,6 +14,7 @@ interface IAppContext {
 	adminIsLoggedIn: boolean;
 	flashcards: IFlashcard[];
 	handleDeleteFlashcard: (flashcard: IFlashcard) => void;
+	systemErrorExists: boolean;
 }
 
 interface IAppProvider {
@@ -25,20 +26,24 @@ const backendUrl = 'http://localhost:3515';
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
 export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
-	const appTitle = 'Info Site';
+	const appTitle = 'Learn Site';
 	const [password, setPassword] = useState('');
 	const [adminIsLoggedIn, setAdminIsLoggedIn] = useState(false);
 	const [appMessage, setAppMessage] = useState('');
 	const [flashcards, setFlashcards] = useState([]);
+	const [systemErrorExists, setSystemErrorExists] = useState(false);
 
 	const handleGeneralApiErrors = (currentAction: string, e: any) => {
 		let _appMessage = '';
 		switch (e.code) {
 			case 'ERR_NETWORK':
-				_appMessage = `Sorry, the site data is currently not available, please try again later.`;
+				_appMessage = `Sorry, the site data is currently not available.`;
+				setSystemErrorExists(true);
 				break;
 			default:
-				_appMessage = `Sorry, the site is currently experiencing difficulties, please try again later.`;
+				_appMessage = `Sorry, the site is currently experiencing difficulties.`;
+				setSystemErrorExists(true);
+				break;
 		}
 		setAppMessage(_appMessage);
 		console.log(`ERROR "${currentAction}": ${e.code}`);
@@ -158,6 +163,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				adminIsLoggedIn,
 				flashcards,
 				handleDeleteFlashcard,
+				systemErrorExists,
 			}}
 		>
 			{children}
