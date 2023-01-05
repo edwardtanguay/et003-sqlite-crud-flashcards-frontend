@@ -39,11 +39,11 @@ function App() {
 				</div>
 			)}
 
-			{flashcards.length === 0 ? (
-				<div>loading...</div>
-			) : (
+			{!systemErrorExists && (
 				<>
-					{!systemErrorExists && (
+					{flashcards.length === 0 ? (
+						<div>loading...</div>
+					) : (
 						<>
 							<nav>
 								<NavLink to="/flashcards">Flashcards</NavLink>
