@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 import { Helmet } from 'react-helmet';
 
-export const PageWelcome = () => {
+export const PageFlashcards = () => {
 	const {
 		appTitle,
 		adminIsLoggedIn,
@@ -11,10 +11,11 @@ export const PageWelcome = () => {
 	} = useContext(AppContext);
 
 	return (
-		<div className="page pageWelcome">
+		<div className="page pageFlashcards">
 			<Helmet>
-				<title>{appTitle} - Welcome</title>
+				<title>{appTitle} - Flashcards</title>
 			</Helmet>
+			<h3>There are {flashcards.length} flashcards:</h3>
 			<div className="flashcards">
 				{flashcards.map((flashcard) => {
 					return (

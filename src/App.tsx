@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { AppContext } from './AppContext';
 import './App.scss';
 import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
-import { PageWelcome } from './pages/PageWelcome';
+import { PageFlashcards } from './pages/PageFlashcards';
 import { PageLogin } from './pages/PageLogin';
 import { PageLogout } from './pages/PageLogout';
 
@@ -25,7 +25,7 @@ function App() {
 				</div>
 			)}
 			<nav>
-				<NavLink to="/welcome">Welcome</NavLink>
+				<NavLink to="/flashcards">Flashcards</NavLink>
 				{adminIsLoggedIn ? (
 					<NavLink to="/logout">Logout</NavLink>
 				) : (
@@ -34,13 +34,13 @@ function App() {
 			</nav>
 
 			<Routes>
-				<Route path="/welcome" element={<PageWelcome />} />
+				<Route path="/flashcards" element={<PageFlashcards />} />
 				{adminIsLoggedIn ? (
 					<Route path="/logout" element={<PageLogout />} />
 				) : (
 					<Route path="/login" element={<PageLogin />} />
 				)}
-				<Route path="/" element={<Navigate to="/welcome" replace />} />
+				<Route path="/" element={<Navigate to="/flashcards" replace />} />
 			</Routes>
 		</div>
 	);

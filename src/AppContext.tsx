@@ -31,9 +31,28 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [appMessage, setAppMessage] = useState('');
 	const [flashcards, setFlashcards] = useState([]);
 
+	const handleGeneralApiErrors = (currentAction: string, e: any) => {
+		let _appMessage = '';
+		switch (e.code) {
+			case 'ERR_NETWORK':
+				_appMessage = `Sorry, the site data is currently not available, please try again later.`;
+				break;
+			default:
+				_appMessage = `Sorry, the site is currently experiencing difficulties, please try again later.`;
+		}
+		setAppMessage(_appMessage);
+		console.log(`ERROR "${currentAction}": ${e.code}`);
+	};
+
 	useEffect(() => {
 		(async () => {
-			setFlashcards((await axios.get(`${backendUrl}/flashcards`)).data);
+			try {
+				setFlashcards(
+					(await axios.get(`${backendUrl}/flashcards`)).data
+				);
+			} catch (e: any) {
+				handleGeneralApiErrors('loading flashcards', e);
+			}
 		})();
 	}, []);
 
@@ -49,16 +68,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 					setAdminIsLoggedIn(true);
 				}
 			} catch (e: any) {
-				if (e.code !== 'ERR_BAD_REQUEST') {
-					const _appMessage = `Sorry, there was an unknown error (${e.code}).`;
-					setAppMessage(_appMessage);
-				}
+				handleGeneralApiErrors('checking current user', e);
 			}
 		})();
 	}, []);
 
 	const loginAsAdmin = async (callback: () => void) => {
-		let _appMessage = '';
 		try {
 			await axios.post(
 				`${backendUrl}/login`,
@@ -72,25 +87,13 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 					withCredentials: true,
 				}
 			);
+			// setAppMessage('Sorry, credentials were incorrect, please attempt login again.');
 			setAdminIsLoggedIn(true);
 			callback();
 		} catch (e: any) {
-			switch (e.code) {
-				case 'ERR_BAD_REQUEST':
-					_appMessage =
-						'Sorry, credentials were incorrect, please attempt login again.';
-					break;
-				case 'ERR_NETWORK':
-					_appMessage =
-						"Sorry, we aren't able to process your request at this time.";
-					break;
-				default:
-					_appMessage = `Sorry, there was an unknown error (${e.code}).`;
-					break;
-			}
+			handleGeneralApiErrors('attemping admin login', e);
 			setAdminIsLoggedIn(false);
 		}
-		setAppMessage(_appMessage);
 		setPassword('');
 	};
 
@@ -108,44 +111,39 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				).data;
 				setAdminIsLoggedIn(false);
 			} catch (e: any) {
-				console.log(
-					`There was a problem with the logout: ${e.message}`
-				);
+				handleGeneralApiErrors('attemping logout', e);
 			}
 		})();
 	};
 
-
 	const handleDeleteFlashcard = async (flashcard: IFlashcard) => {
 		let _appMessage = '';
 		try {
-			await axios.delete(
-				`${backendUrl}/flashcards/${flashcard.id}`,
-				{
-					withCredentials: true,
-				}
+			await axios.delete(`${backendUrl}/flashcards/${flashcard.id}`, {
+				withCredentials: true,
+			});
+			const _flashcards = flashcards.filter(
+				(m: IFlashcard) => m.id !== flashcard.id
 			);
-			const _flashcards = flashcards.filter((m: IFlashcard) => m.id !== flashcard.id);
 			setFlashcards(_flashcards);
-			setAppMessage('flashard deleted')
+			setAppMessage('flashard deleted');
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
-					_appMessage =
-						'Sorry, you had been logged out when you tried to save the welcome message. Please log in again.';
-					break;
-				case 'ERR_NETWORK':
-					_appMessage =
-						"Sorry, we aren't able to process your request at this time.";
+					setAppMessage(
+						'Sorry, you had been logged out. Please log in again.'
+					);
 					break;
 				default:
-					_appMessage = `Sorry, there was an unknown error (${e.code}).`;
+					handleGeneralApiErrors(
+						'attemping delection of flashcard',
+						e
+					);
 					break;
 			}
-			setAppMessage(_appMessage);
 			setAdminIsLoggedIn(false);
 		}
-	}
+	};
 
 	return (
 		<AppContext.Provider

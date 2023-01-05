@@ -1,7 +1,9 @@
-- .. minimize site
+- x minimize site
 	- x pageinfo out
-	- .. take out welcome message edit 
-- welcome page to flashcards page
+	- x frontend: take out welcome message edit  
+	- x backend: take out welcome message edit  
+- x welcome page to flashcards page
+- .. if backend down then graceful message
 - same styling for flashcards
 
 
