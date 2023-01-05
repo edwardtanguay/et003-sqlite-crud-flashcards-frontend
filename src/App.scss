@@ -17,6 +17,25 @@ body {
 		}
 	}
 
+	.siteLoading {
+		font-size: 7rem;
+		color: #555;
+
+		.spinner {
+			animation: spin infinite 3s linear;
+		}
+
+		@keyframes spin {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(360deg);
+			}
+		}
+	}
+
 	h1 {
 		color: rgb(209, 168, 85);
 	}
@@ -40,6 +59,7 @@ body {
 
 			.messageText {
 				margin-top: .1rem;
+
 				a {
 					color: darkred;
 				}

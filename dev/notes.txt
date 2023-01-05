@@ -9,6 +9,7 @@
 	- x fade in
 - x create systemErrorExists
 - .. put in loading
+	- .. show large loading graphic
 
 - same styling for flashcards
 

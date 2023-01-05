@@ -5,6 +5,7 @@ import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 import { PageFlashcards } from './pages/PageFlashcards';
 import { PageLogin } from './pages/PageLogin';
 import { PageLogout } from './pages/PageLogout';
+import { BiLoader } from 'react-icons/bi';
 
 function App() {
 	const {
@@ -42,7 +43,7 @@ function App() {
 			{!systemErrorExists && (
 				<>
 					{flashcards.length === 0 ? (
-						<div>loading...</div>
+						<div className="siteLoading"><BiLoader className="spinner" /></div>
 					) : (
 						<>
 							<nav>
