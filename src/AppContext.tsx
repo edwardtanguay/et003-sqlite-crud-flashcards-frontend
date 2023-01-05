@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
+import { IFlashcard } from './interfaces';
 
 interface IAppContext {
 	appTitle: string;
@@ -16,6 +17,7 @@ interface IAppContext {
 	isEditingWelcomeMessage: boolean;
 	setWelcomeMessage: (message: string) => void;
 	handleSaveWelcomeMessage: () => void;
+	flashcards: IFlashcard[]
 }
 
 interface IAppProvider {
@@ -34,6 +36,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [welcomeMessage, setWelcomeMessage] = useState('');
 	const [isEditingWelcomeMessage, setIsEditingWelcomeMessage] =
 		useState(false);
+	const [flashcards, setFlashcards] = useState([]);
 
 	const loadWelcomeMessage = async () => {
 		const _welcomeMessage = (
@@ -41,6 +44,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		).data;
 		setWelcomeMessage(_welcomeMessage);
 	};
+
+	useEffect(() => {
+		(async () => {
+			setFlashcards((await axios.get(`${backendUrl}/flashcards`)).data);
+		})();
+	}, []);
 
 	useEffect(() => {
 		(async () => {
@@ -182,6 +191,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				isEditingWelcomeMessage,
 				setWelcomeMessage,
 				handleSaveWelcomeMessage,
+				flashcards
 			}}
 		>
 			{children}

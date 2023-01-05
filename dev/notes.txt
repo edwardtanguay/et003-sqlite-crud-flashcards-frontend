@@ -1,18 +1,6 @@
-- TODO
-	- put in wait cursor
-		- disable all buttons
-	- take out any blinking
-		- when logged in and refresh (fix and fade in)
-	- change 10 seconds to 5 minutes, make easy to change
-	- backend: put port in .env
-
-
-============================================
-CODE REMOVED, MAY BE NEEDED:
-============================================
-const logger = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-	const date = new Date();
-	const logLine = `${date.toISOString()} - ${req.originalUrl}`;
-	fs.appendFileSync(config.logPathAndFileName, logLine + '\n');
-	next();
-}
+- .. show flashcards
+	- .. backend: create /flashcards route
+	- frontend: useEffect, fetch flashcards
+- delete button next to every flashcard
+	- hide delete but with adminIsLoggedIn
+	- backend: create /delete/:id (http://localhost:2343/delete/234) route with authorizeUser middleware function 

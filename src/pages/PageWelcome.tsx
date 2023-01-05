@@ -11,6 +11,7 @@ export const PageWelcome = () => {
 		adminIsLoggedIn,
 		turnOnWelcomeMessageEditMode,
 		isEditingWelcomeMessage,
+		flashcards,
 	} = useContext(AppContext);
 
 	return (
@@ -52,6 +53,17 @@ export const PageWelcome = () => {
 					)}
 				</>
 			</p>
+
+			<div className="flashcards">
+				{flashcards.map((flashcard) => {
+					return (
+						<div className="flashcard" key={flashcard.id}>
+							<div className="front">{flashcard.front}</div>
+							<div className="back">{flashcard.back}</div>
+						</div>
+					);
+				})}
+			</div>
 		</div>
 	);
 };

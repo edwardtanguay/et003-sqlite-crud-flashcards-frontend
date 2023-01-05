@@ -56,6 +56,17 @@ body {
 		.theWelcomeMessage {
 			width: 15rem;
 		}
+		.flashcards {
+			.flashcard {
+				margin-bottom: 1rem;
+				background-color: #222;
+				padding: .5rem;
+				width: 25rem;
+				.back {
+					color: tomato;
+				}
+			}
+		}
 	}
 
 }
