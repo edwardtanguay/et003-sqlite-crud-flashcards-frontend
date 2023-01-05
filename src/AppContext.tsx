@@ -22,7 +22,7 @@ interface IAppProvider {
 	children: React.ReactNode;
 }
 
-const backendUrl = 'http://localhost:3511';
+const backendUrl = 'http://localhost:3515';
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -65,6 +65,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	useEffect(() => {
 		loadWelcomeMessage();
 	}, []);
+
 
 	const loginAsAdmin = async (callback: () => void) => {
 		let _appMessage = '';
