@@ -12,6 +12,7 @@ export const PageWelcome = () => {
 		turnOnWelcomeMessageEditMode,
 		isEditingWelcomeMessage,
 		flashcards,
+		handleDeleteFlashcard,
 	} = useContext(AppContext);
 
 	return (
@@ -60,6 +61,15 @@ export const PageWelcome = () => {
 						<div className="flashcard" key={flashcard.id}>
 							<div className="front">{flashcard.front}</div>
 							<div className="back">{flashcard.back}</div>
+							{adminIsLoggedIn && (
+								<button
+									onClick={() =>
+										handleDeleteFlashcard(flashcard)
+									}
+								>
+									Delete
+								</button>
+							)}
 						</div>
 					);
 				})}

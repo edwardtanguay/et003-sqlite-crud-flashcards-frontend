@@ -17,7 +17,8 @@ interface IAppContext {
 	isEditingWelcomeMessage: boolean;
 	setWelcomeMessage: (message: string) => void;
 	handleSaveWelcomeMessage: () => void;
-	flashcards: IFlashcard[]
+	flashcards: IFlashcard[];
+	handleDeleteFlashcard: (flashcard: IFlashcard) => void;
 }
 
 interface IAppProvider {
@@ -74,7 +75,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	useEffect(() => {
 		loadWelcomeMessage();
 	}, []);
-
 
 	const loginAsAdmin = async (callback: () => void) => {
 		let _appMessage = '';
@@ -175,6 +175,39 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		}
 	};
 
+	const handleDeleteFlashcard = async (flashcard: IFlashcard) => {
+		let _appMessage = '';
+		try {
+			await axios.delete(
+				`${backendUrl}/flashcards/${flashcard.id}`,
+				{
+					withCredentials: true,
+				}
+			);
+			const _flashcards = flashcards.filter((m: IFlashcard) => m.id !== flashcard.id);
+			setFlashcards(_flashcards);
+			setAppMessage('flashard deleted')
+		} catch (e: any) {
+			switch (e.code) {
+				case 'ERR_BAD_REQUEST':
+					_appMessage =
+						'Sorry, you had been logged out when you tried to save the welcome message. Please log in again.';
+					break;
+				case 'ERR_NETWORK':
+					_appMessage =
+						"Sorry, we aren't able to process your request at this time.";
+					break;
+				default:
+					_appMessage = `Sorry, there was an unknown error (${e.code}).`;
+					break;
+			}
+			setAppMessage(_appMessage);
+			setAdminIsLoggedIn(false);
+			loadWelcomeMessage();
+			setIsEditingWelcomeMessage(false);
+		}
+	}
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -191,7 +224,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				isEditingWelcomeMessage,
 				setWelcomeMessage,
 				handleSaveWelcomeMessage,
-				flashcards
+				flashcards,
+				handleDeleteFlashcard,
 			}}
 		>
 			{children}
