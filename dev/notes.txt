@@ -1,5 +1,10 @@
-- .. show flashcards
-	- .. backend: create /flashcards route
+- .. minimize site
+	- .. pageinfo out
+- same styling for flashcards
+
+
+- show flashcards
+	- backend: create /flashcards route
 	- frontend: useEffect, fetch flashcards
 - delete button next to every flashcard
 	- hide delete but with adminIsLoggedIn

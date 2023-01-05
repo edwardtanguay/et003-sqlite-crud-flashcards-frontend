@@ -3,7 +3,6 @@ import { AppContext } from './AppContext';
 import './App.scss';
 import { NavLink, Routes, Route, Navigate } from 'react-router-dom';
 import { PageWelcome } from './pages/PageWelcome';
-import { PageInfo } from './pages/PageInfo';
 import { PageLogin } from './pages/PageLogin';
 import { PageLogout } from './pages/PageLogout';
 
@@ -27,7 +26,6 @@ function App() {
 			)}
 			<nav>
 				<NavLink to="/welcome">Welcome</NavLink>
-				<NavLink to="/info">Info</NavLink>
 				{adminIsLoggedIn ? (
 					<NavLink to="/logout">Logout</NavLink>
 				) : (
@@ -37,7 +35,6 @@ function App() {
 
 			<Routes>
 				<Route path="/welcome" element={<PageWelcome />} />
-				<Route path="/info" element={<PageInfo />} />
 				{adminIsLoggedIn ? (
 					<Route path="/logout" element={<PageLogout />} />
 				) : (
