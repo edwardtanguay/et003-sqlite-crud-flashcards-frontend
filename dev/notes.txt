@@ -1,5 +1,7 @@
 - .. minimize site
-	- .. pageinfo out
+	- x pageinfo out
+	- .. take out welcome message edit 
+- welcome page to flashcards page
 - same styling for flashcards
 
 

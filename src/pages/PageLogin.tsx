@@ -21,7 +21,7 @@ export const PageLogin = () => {
 	}
 
 	return (
-		<div className="pageLogin">
+		<div className="page pageLogin">
 			<Helmet>
 				<title>{appTitle} - Login</title>
 			</Helmet>
