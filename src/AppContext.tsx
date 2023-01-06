@@ -6,7 +6,7 @@ import * as tools from './tools';
 
 interface IAppContext {
 	appTitle: string;
-	loginAsAdmin: (callback: () => void) => void;
+	loginAsAdmin: (onSuccess: () => void, onFailure: () => void) => void;
 	logoutAsAdmin: () => void;
 	password: string;
 	setPassword: (password: string) => void;
@@ -94,7 +94,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		})();
 	}, []);
 
-	const loginAsAdmin = async (callback: () => void) => {
+	const loginAsAdmin = async (onSuccess: () => void, onFailure: () => void) => {
 		try {
 			await axios.post(
 				`${backendUrl}/login`,
@@ -110,13 +110,14 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			);
 			setAppMessage('');
 			setAdminIsLoggedIn(true);
-			callback();
+			onSuccess();
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
 					setAppMessage(
 						'Sorry, you entered incorrect credentials. Please try again.'
 					);
+					onFailure();
 					break;
 				default:
 					handleGeneralApiErrors('attemping admin login', e);

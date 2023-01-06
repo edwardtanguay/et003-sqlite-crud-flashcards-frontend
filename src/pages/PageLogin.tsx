@@ -1,7 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { AppContext } from '../AppContext';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
+
+// interface RefObject<T> {
+// 	readonly current: T | null;
+// }
 
 export const PageLogin = () => {
 	const {
@@ -13,12 +17,20 @@ export const PageLogin = () => {
 		logoutAsAdmin,
 	} = useContext(AppContext);
 	const navigate = useNavigate();
+	const passwordRef = useRef() as React.RefObject<HTMLInputElement>;
 
-	const loginAndRedirect = () => {
-		loginAsAdmin(() => {
-			navigate('/');
-		});
-	}
+	const loginAndReact = () => {
+		loginAsAdmin(
+			() => {
+				navigate('/');
+			},
+			() => {
+				if (passwordRef.current !== null) {
+					passwordRef.current.focus();
+				}
+			}
+		);
+	};
 
 	return (
 		<div className="page pageLogin">
@@ -36,11 +48,16 @@ export const PageLogin = () => {
 					Identify as admin:{' '}
 					<input
 						type="password"
+						ref={passwordRef}
 						autoFocus
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>{' '}
-					<button disabled={password.trim() === ''} onClick={loginAndRedirect} type="button">
+					<button
+						disabled={password.trim() === ''}
+						onClick={loginAndReact}
+						type="button"
+					>
 						Login
 					</button>
 				</p>
