@@ -8,7 +8,12 @@ interface IProps {
 }
 
 export const Flashcard = ({ flashcard }: IProps) => {
-	const { handleToggleFlashcard, handleDeleteFlashcard, adminIsLoggedIn } = useContext(AppContext);
+	const {
+		handleToggleFlashcard,
+		handleDeleteFlashcard,
+		handleEditFlashcard,
+		adminIsLoggedIn,
+	} = useContext(AppContext);
 
 	return (
 		<div className="flashcardWrapper">
@@ -31,7 +36,12 @@ export const Flashcard = ({ flashcard }: IProps) => {
 			</div>
 			{adminIsLoggedIn && (
 				<div className="adminArea">
-					<button onClick={() => handleDeleteFlashcard(flashcard)}>Delete</button>
+					<button onClick={() => handleDeleteFlashcard(flashcard)}>
+						Delete
+					</button>
+					<button onClick={() => handleEditFlashcard(flashcard)}>
+						Edit
+					</button>
 				</div>
 			)}
 		</div>

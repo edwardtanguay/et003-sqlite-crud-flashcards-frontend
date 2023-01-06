@@ -17,6 +17,7 @@ interface IAppContext {
 	handleDeleteFlashcard: (flashcard: IFlashcard) => void;
 	systemErrorExists: boolean;
 	handleToggleFlashcard: (flashcard: IFlashcard) => void;
+	handleEditFlashcard: (flashcard: IFlashcard) => void;
 }
 
 interface IAppProvider {
@@ -181,6 +182,11 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcards([...flashcards]);
 	};
 
+	const handleEditFlashcard = (flashcard: IFlashcard) => {
+		console.log(`editing flashcard: ${flashcard.front}`);
+	};
+
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -195,6 +201,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleDeleteFlashcard,
 				systemErrorExists,
 				handleToggleFlashcard,
+				handleEditFlashcard
 			}}
 		>
 			{children}

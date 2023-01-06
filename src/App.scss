@@ -154,6 +154,8 @@ body {
 					background: $admin_color; 
 					max-width: $flashcard_width - 1.6rem;
 					padding: .8rem;
+					display: flex;	
+					gap: .5rem;
 				}
 			}
 		}
