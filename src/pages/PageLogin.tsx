@@ -3,10 +3,6 @@ import { AppContext } from '../AppContext';
 import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 
-// interface RefObject<T> {
-// 	readonly current: T | null;
-// }
-
 export const PageLogin = () => {
 	const {
 		appTitle,
@@ -32,6 +28,12 @@ export const PageLogin = () => {
 		);
 	};
 
+	const handleKeyDown = (e: any) => {
+		if (e.keyCode === 13) {
+			loginAndReact();
+		}
+	};
+
 	return (
 		<div className="page pageLogin">
 			<Helmet>
@@ -51,6 +53,7 @@ export const PageLogin = () => {
 						ref={passwordRef}
 						autoFocus
 						value={password}
+						onKeyDown={handleKeyDown}
 						onChange={(e) => setPassword(e.target.value)}
 					/>{' '}
 					<button
