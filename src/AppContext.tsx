@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { blankNewFlashcard, IFlashcard, IOriginalFlashcard, IRawFlashcard } from './interfaces';
+import {
+	blankNewFlashcard,
+	IFlashcard,
+	IOriginalFlashcard,
+	IRawFlashcard,
+} from './interfaces';
 import * as tools from './tools';
 import { toast } from 'react-toastify';
 
@@ -28,6 +33,13 @@ interface IAppContext {
 		value: string
 	) => void;
 	newFlashcard: IOriginalFlashcard;
+	flashcardIsBeingAdded: boolean;
+	handleAddFlashcardFieldChange: (
+		fieldIdCode: string,
+		newFlashcard: IOriginalFlashcard,
+		value: string
+	) => void;
+	handleAddFlashcard: () => void;
 }
 
 interface IAppProvider {
@@ -46,7 +58,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [appMessage, setAppMessage] = useState('');
 	const [flashcards, setFlashcards] = useState<IFlashcard[]>([]);
 	const [systemErrorExists, setSystemErrorExists] = useState(false);
-	const [newFlashcard, setNewFlashcard] = useState<IOriginalFlashcard>(blankNewFlashcard);
+	const [newFlashcard, setNewFlashcard] =
+		useState<IOriginalFlashcard>(blankNewFlashcard);
+	const [flashcardIsBeingAdded, setFlashcardIsBeingAdded] = useState(false);
 
 	const handleGeneralApiErrors = (currentAction: string, e: any) => {
 		let _appMessage = '';
@@ -271,6 +285,19 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcards([...flashcards]);
 	};
 
+	const handleAddFlashcardFieldChange = (
+		fieldIdCode: string,
+		newFlashcard: IOriginalFlashcard,
+		value: string
+	) => {
+		newFlashcard[fieldIdCode as keyof IOriginalFlashcard] = value;
+		setNewFlashcard({ ...newFlashcard });
+	};
+
+	const handleAddFlashcard = () => {
+		setFlashcardIsBeingAdded(true);
+	}
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -292,6 +319,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleConfirmDeleteFlashcard,
 				handleCancelDeleteFlashcard,
 				newFlashcard,
+				flashcardIsBeingAdded,
+				handleAddFlashcardFieldChange,
+				handleAddFlashcard,
 			}}
 		>
 			{children}
