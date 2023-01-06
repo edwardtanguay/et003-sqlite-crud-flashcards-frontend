@@ -12,5 +12,6 @@ export interface IFlashcard extends IRawFlashcard {
 	isOpen: boolean;
 	backHtml: string;
 	isBeingEdited: boolean;
+	isBeingDeleted: boolean;
 	originalItem: IOriginalFlashcard;
 }

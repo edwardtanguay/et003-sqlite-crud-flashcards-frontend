@@ -18,7 +18,9 @@ interface IAppContext {
 	systemErrorExists: boolean;
 	handleToggleFlashcard: (flashcard: IFlashcard) => void;
 	handleEditFlashcard: (flashcard: IFlashcard) => void;
+	handleConfirmDeleteFlashcard: (flashcard: IFlashcard) => void;
 	handleCancelEditFlashcard: (flashcard: IFlashcard) => void;
+	handleCancelDeleteFlashcard: (flashcard: IFlashcard) => void;
 	handleSaveEditFlashcard: (flashcard: IFlashcard) => void;
 	handleFlashcardFieldChange: (
 		fieldIdCode: string,
@@ -76,6 +78,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 								rawFlashcard.back
 							),
 							isBeingEdited: false,
+							isBeingDeleted: false,
 							originalItem: {
 								category: rawFlashcard.category,
 								front: rawFlashcard.front,
@@ -132,7 +135,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
 					notify(
-						'Sorry, password was not correct. Please try again.'
+						'Your password was not correct. Please try again.'
 					);
 					onFailure();
 					break;
@@ -160,7 +163,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		})();
 	};
 
-	const handleDeleteFlashcard = async (flashcard: IFlashcard) => {
+	const handleConfirmDeleteFlashcard = async (flashcard: IFlashcard) => {
 		try {
 			await axios.delete(`${backendUrl}/flashcard/${flashcard.id}`, {
 				withCredentials: true,
@@ -193,6 +196,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcards([...flashcards]);
 	};
 
+	const handleDeleteFlashcard = (flashcard: IFlashcard) => {
+		flashcard.isBeingDeleted = true;
+		flashcard.isOpen = true;
+		setFlashcards([...flashcards]);
+	};
+
 	const handleEditFlashcard = (flashcard: IFlashcard) => {
 		flashcard.isBeingEdited = true;
 		setFlashcards([...flashcards]);
@@ -200,6 +209,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
 	const handleCancelEditFlashcard = (flashcard: IFlashcard) => {
 		flashcard.isBeingEdited = false;
+		setFlashcards([...flashcards]);
+	};
+
+	const handleCancelDeleteFlashcard = (flashcard: IFlashcard) => {
+		flashcard.isBeingDeleted = false;
+		flashcard.isOpen = false;
 		setFlashcards([...flashcards]);
 	};
 
@@ -274,6 +289,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleCancelEditFlashcard,
 				handleSaveEditFlashcard,
 				handleFlashcardFieldChange,
+				handleConfirmDeleteFlashcard,
+				handleCancelDeleteFlashcard,
 			}}
 		>
 			{children}

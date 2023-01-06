@@ -13,7 +13,9 @@ export const Flashcard = ({ flashcard }: IProps) => {
 		handleEditFlashcard,
 		handleCancelEditFlashcard,
 		handleSaveEditFlashcard,
+		handleConfirmDeleteFlashcard,
 		handleFlashcardFieldChange,
+		handleCancelDeleteFlashcard,
 		adminIsLoggedIn,
 	} = useContext(AppContext);
 
@@ -98,7 +100,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 							</form>
 						</div>
 					)}
-					{!flashcard.isBeingEdited && (
+					{!flashcard.isBeingEdited && !flashcard.isBeingDeleted && (
 						<div className="adminArea">
 							<button
 								onClick={() => handleDeleteFlashcard(flashcard)}
@@ -127,6 +129,25 @@ export const Flashcard = ({ flashcard }: IProps) => {
 								}
 							>
 								Save
+							</button>
+						</div>
+					)}
+					{flashcard.isBeingDeleted && (
+						<div className="deleteAdminArea">
+							<div className="question">Are you sure you want to delete this flashcard?</div>
+							<button
+								onClick={() =>
+									handleCancelDeleteFlashcard(flashcard)
+								}
+							>
+								Cancel
+							</button>
+							<button
+								onClick={() =>
+									handleConfirmDeleteFlashcard(flashcard)
+								}
+							>
+								DELETE
 							</button>
 						</div>
 					)}

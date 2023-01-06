@@ -1,13 +1,3 @@
-- .. simplify category/categoryName to category
-
-
-- .. edit button
-	- x backend: create PUT /flashcard/:id
-	- x replace entire flashcard with form and CANCEL SAVE
-	- x save button: save frontend state
-	- .. save button: save to backend
-
-- delete button: are you sure?
 
 - add button 
 	- after "There are ..."
