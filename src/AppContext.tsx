@@ -150,18 +150,19 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const handleDeleteFlashcard = async (flashcard: IFlashcard) => {
 		let _appMessage = '';
 		try {
-			await axios.delete(`${backendUrl}/flashcards/${flashcard.id}`, {
+			await axios.delete(`${backendUrl}/flashcard/${flashcard.id}`, {
 				withCredentials: true,
 			});
 			const _flashcards = flashcards.filter(
 				(m: IFlashcard) => m.id !== flashcard.id
 			);
 			setFlashcards(_flashcards);
+			notify('Flashcard was deleted.');
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
 					notify(
-						'Sorry, you had been logged out. Please log in again.'
+						'Sorry, you had been logged out. Flashcard was not deleted.'
 					);
 					break;
 				default:

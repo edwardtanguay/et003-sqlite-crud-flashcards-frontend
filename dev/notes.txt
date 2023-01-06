@@ -1,6 +1,8 @@
-- .. fix styling on flashards to corners
+- .. edit button
+	- x backend: create PUT /flashcard/:id
+	- .. replace entire flashcard with form and CANCEL SAVE
 
-- edit button
-	- replace entire flashcard with form and CANCEL SAVE
 - add button 
 	- after "There are ..."
+
+- backend: fix documentation root route

@@ -16,7 +16,7 @@ function App() {
 		<div className="App">
 			<ToastContainer
 				position="top-right"
-				autoClose={2000}
+				autoClose={2500}
 				hideProgressBar={false}
 				newestOnTop={false}
 				closeOnClick
@@ -28,7 +28,7 @@ function App() {
 				className="toast-position"
 			/>
 			{adminIsLoggedIn ? (
-				<h1 className="adminMode">&lt;ADMIN MODE&gt;</h1>
+				<h1 className="adminMode"><span className="sideIcon">&lt;</span>ADMIN MODE<span className="sideIcon">&gt;</span></h1>
 			) : (
 				<h1>Learn Site</h1>
 			)}

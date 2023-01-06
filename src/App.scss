@@ -1,6 +1,8 @@
 $corner: .5rem;
 $header_color: rgb(194, 164, 107);
 $color_border_admin: #555;
+$flashcard_width: 35rem;
+$admin_color: rgb(61, 3, 3);
 
 body {
 	background-color: #333;
@@ -55,6 +57,10 @@ body {
 	h1.adminMode {
 		color: #000;
 		text-shadow: 2px 2px 10px #ccc;
+		span.sideIcon {
+			color: $admin_color;
+			text-shadow: 2px 2px 10px #555;
+		}
 	}
 
 	.appMessage {
@@ -110,11 +116,10 @@ body {
 			.flashcardWrapper {
 				.flashcard {
 					margin-top: 1rem;
-					max-width: 35rem;
+					max-width: $flashcard_width;
 
 					.front {
 						background-color: #222;
-						border-radius: $corner $corner 0 0;
 						padding: 1rem;
 						user-select: none;
 						cursor: pointer;
@@ -126,7 +131,6 @@ body {
 
 					.back {
 						background-color: #111;
-						border-radius: 0 0 $corner $corner;
 						padding: 1rem;
 						color: rgb(228, 228, 128);
 
@@ -147,14 +151,9 @@ body {
 
 				.adminArea {
 					margin-top: -.1rem;
-					margin-left: .7rem;
-					background: #000;
-					border-radius: 0 0 $corner $corner;
-					max-width: 31.8rem;
+					background: $admin_color; 
+					max-width: $flashcard_width - 1.6rem;
 					padding: .8rem;
-					border-left: 1px solid $color_border_admin;
-					border-bottom: 1px solid $color_border_admin;
-					border-right: 1px solid $color_border_admin;
 				}
 			}
 		}
