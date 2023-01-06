@@ -1,17 +1,4 @@
-- x minimize site
-	- x pageinfo out
-	- x frontend: take out welcome message edit  
-	- x backend: take out welcome message edit  
-- x welcome page to flashcards page
-- x if backend down then graceful message
-- x change currentuser file to 200 since it is not really an error
-- x fix blink
-	- x fade in
-- x create systemErrorExists
-- .. put in loading
-	- .. show large loading graphic
-
-- same styling for flashcards
+- .. same styling for flashcards
 
 
 - show flashcards

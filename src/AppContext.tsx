@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { IFlashcard } from './interfaces';
+import { IFlashcard, IRawFlashcard } from './interfaces';
+import * as tools from './tools';
 
 interface IAppContext {
 	appTitle: string;
@@ -15,6 +16,7 @@ interface IAppContext {
 	flashcards: IFlashcard[];
 	handleDeleteFlashcard: (flashcard: IFlashcard) => void;
 	systemErrorExists: boolean;
+	handleToggleFlashcard: (flashcard: IFlashcard) => void;
 }
 
 interface IAppProvider {
@@ -30,7 +32,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [password, setPassword] = useState('');
 	const [adminIsLoggedIn, setAdminIsLoggedIn] = useState(false);
 	const [appMessage, setAppMessage] = useState('');
-	const [flashcards, setFlashcards] = useState([]);
+	const [flashcards, setFlashcards] = useState<IFlashcard[]>([]);
 	const [systemErrorExists, setSystemErrorExists] = useState(false);
 
 	const handleGeneralApiErrors = (currentAction: string, e: any) => {
@@ -52,9 +54,23 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	useEffect(() => {
 		(async () => {
 			try {
-				setFlashcards(
-					(await axios.get(`${backendUrl}/flashcards`)).data
-				);
+				(async () => {
+					const _flashcards: IFlashcard[] = [];
+					const rawFlashcards = (
+						await axios.get(`${backendUrl}/flashcards`)
+					).data;
+					rawFlashcards.forEach((rawFlashcard: IRawFlashcard) => {
+						const _flashcard: IFlashcard = {
+							...rawFlashcard,
+							isOpen: false,
+							backHtml: tools.convertMarkdownToHtml(
+								rawFlashcard.back
+							),
+						};
+						_flashcards.push(_flashcard);
+					});
+					setFlashcards(_flashcards);
+				})();
 			} catch (e: any) {
 				handleGeneralApiErrors('loading flashcards', e);
 			}
@@ -150,6 +166,11 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		}
 	};
 
+	const handleToggleFlashcard = (flashcard: IFlashcard) => {
+		flashcard.isOpen = !flashcard.isOpen;
+		setFlashcards([...flashcards]);
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -164,6 +185,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				flashcards,
 				handleDeleteFlashcard,
 				systemErrorExists,
+				handleToggleFlashcard,
 			}}
 		>
 			{children}
