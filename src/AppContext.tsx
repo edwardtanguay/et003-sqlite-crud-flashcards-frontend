@@ -81,33 +81,32 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		console.log(`ERROR "${currentAction}": ${e.code}`);
 	};
 
+	const loadFlashcards = async () => {
+		const _flashcards: IFlashcard[] = [];
+		const rawFlashcards = (await axios.get(`${backendUrl}/flashcards`))
+			.data;
+		rawFlashcards.forEach((rawFlashcard: IRawFlashcard) => {
+			const _flashcard: IFlashcard = {
+				...rawFlashcard,
+				isOpen: false,
+				backHtml: tools.convertMarkdownToHtml(rawFlashcard.back),
+				isBeingEdited: false,
+				isBeingDeleted: false,
+				originalItem: {
+					category: rawFlashcard.category,
+					front: rawFlashcard.front,
+					back: rawFlashcard.back,
+				},
+			};
+			_flashcards.push(_flashcard);
+		});
+		setFlashcards(_flashcards);
+	};
+
 	useEffect(() => {
 		(async () => {
 			try {
-				(async () => {
-					const _flashcards: IFlashcard[] = [];
-					const rawFlashcards = (
-						await axios.get(`${backendUrl}/flashcards`)
-					).data;
-					rawFlashcards.forEach((rawFlashcard: IRawFlashcard) => {
-						const _flashcard: IFlashcard = {
-							...rawFlashcard,
-							isOpen: false,
-							backHtml: tools.convertMarkdownToHtml(
-								rawFlashcard.back
-							),
-							isBeingEdited: false,
-							isBeingDeleted: false,
-							originalItem: {
-								category: rawFlashcard.category,
-								front: rawFlashcard.front,
-								back: rawFlashcard.back,
-							},
-						};
-						_flashcards.push(_flashcard);
-					});
-					setFlashcards(_flashcards);
-				})();
+				loadFlashcards();
 			} catch (e: any) {
 				handleGeneralApiErrors('loading flashcards', e);
 			}
@@ -306,9 +305,43 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcardIsBeingAdded(false);
 	};
 
-	const handleSaveNewFlashcard = () => {
-		console.log('...saving')
-	}
+	const handleSaveNewFlashcard = async () => {
+		try {
+			// save in backend
+			await axios.post(
+				`${backendUrl}/flashcard`,
+				{
+					flashcard: {
+						category: newFlashcard.category,
+						front: newFlashcard.front,
+						back: newFlashcard.back,
+					},
+				},
+				{
+					withCredentials: true,
+				}
+			);
+			// if it saved in backend, then update on frontend
+			loadFlashcards();
+			setFlashcardIsBeingAdded(false);
+			notify('Flashcard was added.');
+		} catch (e: any) {
+			switch (e.code) {
+				case 'ERR_BAD_REQUEST':
+					notify(
+						'Sorry, you had been logged out. Flashcard changes were not saved.'
+					);
+					break;
+				default:
+					handleGeneralApiErrors(
+						'attemping to save changes to flashcard',
+						e
+					);
+					break;
+			}
+			setAdminIsLoggedIn(false);
+		}
+	};
 
 	return (
 		<AppContext.Provider
