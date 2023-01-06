@@ -324,6 +324,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			// if it saved in backend, then update on frontend
 			loadFlashcards();
 			setFlashcardIsBeingAdded(false);
+			setNewFlashcard({ ...blankNewFlashcard });
 			notify('Flashcard was added.');
 		} catch (e: any) {
 			switch (e.code) {

@@ -1,20 +1,9 @@
-- .. add functionality 
-	- x backend: POST /flashcard
-	- x add button after "There are ..."
-	- .. add area above it, and format with all functionality
-		- x category small
-		- x label
-		- x remove add button
-		- x bottom editing are
-		- x cursor focus
-		- x cancel actually clears
-		- .. save button handle
-	- add Enter = Add
-	- focus on add button
+- .. list last-added first (reverse id order)
+- add Enter = Add
+- focus on add button
 
 
 - make sure cancel resets all values on edit
 - padding on edit are like on add
-- list last-added first (reverse id order)
 - responsive
 - backend: fix documentation root route
