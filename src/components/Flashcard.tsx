@@ -12,6 +12,8 @@ export const Flashcard = ({ flashcard }: IProps) => {
 		handleDeleteFlashcard,
 		handleEditFlashcard,
 		handleCancelEditFlashcard,
+		handleSaveEditFlashcard,
+		handleFlashcardFieldChange,
 		adminIsLoggedIn,
 	} = useContext(AppContext);
 
@@ -50,6 +52,13 @@ export const Flashcard = ({ flashcard }: IProps) => {
 											value={
 												flashcard.originalItem.category
 											}
+											onChange={(e) =>
+												handleFlashcardFieldChange(
+													'category',
+													flashcard,
+													e.target.value
+												)
+											}
 											type="text"
 										/>
 									</div>
@@ -59,6 +68,13 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									<div className="control">
 										<input
 											value={flashcard.originalItem.front}
+											onChange={(e) =>
+												handleFlashcardFieldChange(
+													'front',
+													flashcard,
+													e.target.value
+												)
+											}
 											type="text"
 										/>
 									</div>
@@ -68,6 +84,13 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									<div className="control">
 										<input
 											value={flashcard.originalItem.back}
+											onChange={(e) =>
+												handleFlashcardFieldChange(
+													'back',
+													flashcard,
+													e.target.value
+												)
+											}
 											type="text"
 										/>
 									</div>
@@ -98,7 +121,13 @@ export const Flashcard = ({ flashcard }: IProps) => {
 							>
 								Cancel
 							</button>
-							<button>Save</button>
+							<button
+								onClick={() =>
+									handleSaveEditFlashcard(flashcard)
+								}
+							>
+								Save
+							</button>
 						</div>
 					)}
 				</>

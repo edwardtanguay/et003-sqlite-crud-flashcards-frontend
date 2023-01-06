@@ -1,6 +1,8 @@
 - .. edit button
 	- x backend: create PUT /flashcard/:id
-	- .. replace entire flashcard with form and CANCEL SAVE
+	- x replace entire flashcard with form and CANCEL SAVE
+	- .. save button: save frontend state
+	- save button: save to backend
 
 - add button 
 	- after "There are ..."

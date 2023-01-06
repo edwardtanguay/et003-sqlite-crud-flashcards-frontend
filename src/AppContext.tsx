@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { IFlashcard, IRawFlashcard } from './interfaces';
+import { IFlashcard, IOriginalFlashcard, IRawFlashcard } from './interfaces';
 import * as tools from './tools';
 import { toast } from 'react-toastify';
 
@@ -19,6 +19,8 @@ interface IAppContext {
 	handleToggleFlashcard: (flashcard: IFlashcard) => void;
 	handleEditFlashcard: (flashcard: IFlashcard) => void;
 	handleCancelEditFlashcard: (flashcard: IFlashcard) => void;
+	handleSaveEditFlashcard: (flashcard: IFlashcard) => void;
+	handleFlashcardFieldChange: (fieldIdCode: string, flashcard: IFlashcard, value: string) => void;
 }
 
 interface IAppProvider {
@@ -74,7 +76,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 								category: rawFlashcard.category,
 								front: rawFlashcard.front,
 								back: rawFlashcard.back,
-							}
+							},
 						};
 						_flashcards.push(_flashcard);
 					});
@@ -199,6 +201,20 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcards([...flashcards]);
 	};
 
+	const handleSaveEditFlashcard = (flashcard: IFlashcard) => {
+		flashcard.isBeingEdited = false;
+		flashcard.category = 'notepadPlusPlus';  //flashcard.originalItem.category;
+		console.log(flashcard);
+		flashcard.front = flashcard.originalItem.front;
+		flashcard.back = flashcard.originalItem.back;
+		setFlashcards([...flashcards]);
+	};
+
+	const handleFlashcardFieldChange = (fieldIdCode: string, flashcard: IFlashcard, value: string) => {
+		flashcard.originalItem[fieldIdCode as keyof IOriginalFlashcard] = value;
+		setFlashcards([...flashcards]);
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -215,6 +231,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleToggleFlashcard,
 				handleEditFlashcard,
 				handleCancelEditFlashcard,
+				handleSaveEditFlashcard,
+				handleFlashcardFieldChange,
 			}}
 		>
 			{children}
