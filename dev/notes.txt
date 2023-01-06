@@ -1,4 +1,4 @@
-- .. list last-added first (reverse id order)
+- x list last-added first (reverse id order)
 - add Enter = Add
 - focus on add button
 

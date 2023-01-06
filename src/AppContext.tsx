@@ -82,7 +82,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	};
 
 	const loadFlashcards = async () => {
-		const _flashcards: IFlashcard[] = [];
+		let _flashcards: IFlashcard[] = [];
 		const rawFlashcards = (await axios.get(`${backendUrl}/flashcards`))
 			.data;
 		rawFlashcards.forEach((rawFlashcard: IRawFlashcard) => {
@@ -100,6 +100,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			};
 			_flashcards.push(_flashcard);
 		});
+		_flashcards = tools.sortArrayOfObjects(_flashcards, 'id', 'desc');
 		setFlashcards(_flashcards);
 	};
 
@@ -152,7 +153,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
-					notify('Your password was not correct. Please try again.');
+					notify('Your password was incorrect. Please try again.');
 					onFailure();
 					break;
 				default:
