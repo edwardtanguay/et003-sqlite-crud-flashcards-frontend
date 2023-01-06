@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
-
 import { IFlashcard } from '../interfaces';
 
 interface IProps {
@@ -12,6 +11,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 		handleToggleFlashcard,
 		handleDeleteFlashcard,
 		handleEditFlashcard,
+		handleCancelEditFlashcard,
 		adminIsLoggedIn,
 	} = useContext(AppContext);
 
@@ -36,38 +36,56 @@ export const Flashcard = ({ flashcard }: IProps) => {
 			</div>
 			{adminIsLoggedIn && (
 				<>
-					<div className="editArea">
-						<form>
-							<div className="row rowCategory">
-								<label>Category</label>
-								<div className="control">
-									<input type="text" />
+					{flashcard.isBeingEdited && (
+						<div className="editArea">
+							<form>
+								<div className="row rowCategory">
+									<label>Category</label>
+									<div className="control">
+										<input type="text" />
+									</div>
 								</div>
-							</div>
-							<div className="row">
-								<label>Front</label>
-								<div className="control">
-									<input type="text" />
+								<div className="row">
+									<label>Front</label>
+									<div className="control">
+										<input type="text" />
+									</div>
 								</div>
-							</div>
-							<div className="row">
-								<label>Back</label>
-								<div className="control">
-									<input type="text" />
+								<div className="row">
+									<label>Back</label>
+									<div className="control">
+										<input type="text" />
+									</div>
 								</div>
-							</div>
-						</form>
-					</div>
-					<div className="adminArea">
-						<button
-							onClick={() => handleDeleteFlashcard(flashcard)}
-						>
-							Delete
-						</button>
-						<button onClick={() => handleEditFlashcard(flashcard)}>
-							Edit
-						</button>
-					</div>
+							</form>
+						</div>
+					)}
+					{!flashcard.isBeingEdited && (
+						<div className="adminArea">
+							<button
+								onClick={() => handleDeleteFlashcard(flashcard)}
+							>
+								Delete
+							</button>
+							<button
+								onClick={() => handleEditFlashcard(flashcard)}
+							>
+								Edit
+							</button>
+						</div>
+					)}
+					{flashcard.isBeingEdited && (
+						<div className="editAdminArea">
+							<button
+								onClick={() =>
+									handleCancelEditFlashcard(flashcard)
+								}
+							>
+								Cancel
+							</button>
+							<button>Save</button>
+						</div>
+					)}
 				</>
 			)}
 		</div>

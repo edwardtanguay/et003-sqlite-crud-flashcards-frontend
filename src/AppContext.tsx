@@ -18,6 +18,7 @@ interface IAppContext {
 	systemErrorExists: boolean;
 	handleToggleFlashcard: (flashcard: IFlashcard) => void;
 	handleEditFlashcard: (flashcard: IFlashcard) => void;
+	handleCancelEditFlashcard: (flashcard: IFlashcard) => void;
 }
 
 interface IAppProvider {
@@ -68,6 +69,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 							backHtml: tools.convertMarkdownToHtml(
 								rawFlashcard.back
 							),
+							isBeingEdited: false,
 						};
 						_flashcards.push(_flashcard);
 					});
@@ -183,9 +185,14 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	};
 
 	const handleEditFlashcard = (flashcard: IFlashcard) => {
-		console.log(`editing flashcard: ${flashcard.front}`);
+		flashcard.isBeingEdited = true;
+		setFlashcards([...flashcards]);
 	};
 
+	const handleCancelEditFlashcard = (flashcard: IFlashcard) => {
+		flashcard.isBeingEdited = false;
+		setFlashcards([...flashcards]);
+	};
 
 	return (
 		<AppContext.Provider
@@ -201,7 +208,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleDeleteFlashcard,
 				systemErrorExists,
 				handleToggleFlashcard,
-				handleEditFlashcard
+				handleEditFlashcard,
+				handleCancelEditFlashcard,
 			}}
 		>
 			{children}
