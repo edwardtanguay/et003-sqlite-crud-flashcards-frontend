@@ -1,6 +1,4 @@
-- .. replace custom messages with toaster
-	- system error keeps current message notification: change appMessage to systemMessage
-	- fix menu bar with toaster
+- .. fix styling on flashards to corners
 
 - edit button
 	- replace entire flashcard with form and CANCEL SAVE
