@@ -2,6 +2,7 @@ import { useContext, useRef } from 'react';
 import { AppContext } from '../AppContext';
 import { Helmet } from 'react-helmet';
 import { Flashcard } from '../components/Flashcard';
+import { IOriginalFlashcard } from '../interfaces';
 
 export const PageFlashcards = () => {
 	const {
@@ -13,7 +14,7 @@ export const PageFlashcards = () => {
 		handleAddFlashcardFieldChange,
 		handleCancelAddFlashcard,
 		handleAddFlashcard,
-handleSaveNewFlashcard
+		handleSaveNewFlashcard,
 	} = useContext(AppContext);
 
 	const newCategoryRef = useRef() as React.RefObject<HTMLInputElement>;
@@ -24,7 +25,13 @@ handleSaveNewFlashcard
 			if (newCategoryRef.current !== null) {
 				newCategoryRef.current.focus();
 			}
-		},100);
+		}, 100);
+	};
+
+	const handleKeyDown = (key: string) => {
+		if (key === 'Enter') {
+			handleSaveNewFlashcard();
+		}
 	};
 
 	return (
@@ -43,6 +50,7 @@ handleSaveNewFlashcard
 								<div className="control">
 									<input
 										value={newFlashcard.category}
+										onKeyDown={(e) => handleKeyDown(e.key)}
 										ref={newCategoryRef}
 										onChange={(e) =>
 											handleAddFlashcardFieldChange(
@@ -60,6 +68,7 @@ handleSaveNewFlashcard
 								<div className="control">
 									<input
 										value={newFlashcard.front}
+										onKeyDown={(e) => handleKeyDown(e.key)}
 										onChange={(e) =>
 											handleAddFlashcardFieldChange(
 												'front',
@@ -76,6 +85,7 @@ handleSaveNewFlashcard
 								<div className="control">
 									<input
 										value={newFlashcard.back}
+										onKeyDown={(e) => handleKeyDown(e.key)}
 										onChange={(e) =>
 											handleAddFlashcardFieldChange(
 												'back',
@@ -91,16 +101,10 @@ handleSaveNewFlashcard
 					</div>
 
 					<div className="newFlashcardAdminArea">
-						<button
-								onClick={handleCancelAddFlashcard}
-						>
+						<button onClick={handleCancelAddFlashcard}>
 							Cancel
 						</button>
-						<button
-						onClick={handleSaveNewFlashcard}
-						>
-							Save	
-						</button>
+						<button onClick={handleSaveNewFlashcard}>Save</button>
 					</div>
 				</>
 			)}
@@ -108,7 +112,9 @@ handleSaveNewFlashcard
 			<div className="headerArea">
 				<h3>There are {flashcards.length} flashcards:</h3>
 				{adminIsLoggedIn && !flashcardIsBeingAdded && (
-					<button onClick={prehandleAddFlashcard}>Add Flashcard</button>
+					<button onClick={prehandleAddFlashcard}>
+						Add Flashcard
+					</button>
 				)}
 			</div>
 			<div className="flashcards">

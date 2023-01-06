@@ -226,6 +226,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
 	const handleCancelEditFlashcard = (flashcard: IFlashcard) => {
 		flashcard.isBeingEdited = false;
+		//reset any values that were changed
+		flashcard.originalItem = {
+			category: flashcard.category,
+			front: flashcard.front,
+			back: flashcard.back,
+		};
 		setFlashcards([...flashcards]);
 	};
 

@@ -1,9 +1,4 @@
-- x list last-added first (reverse id order)
-- add Enter = Add
-- focus on add button
-
-
-- make sure cancel resets all values on edit
+- .. make sure cancel resets all values on edit
 - padding on edit are like on add
 - responsive
 - backend: fix documentation root route
