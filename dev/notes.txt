@@ -1,5 +1,0 @@
-- x make sure cancel resets all values on edit
-- x padding on edit are like on add
-- x responsive
-- x close all on login and logoff
-- .. backend: fix documentation root route
