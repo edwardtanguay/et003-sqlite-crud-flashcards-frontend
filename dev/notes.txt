@@ -1,3 +1,8 @@
 - replace custom messages with toaster
 	- system error keeps current message notification
 	- fix menu bar with toaster
+
+- edit button
+	- replace entire flashcard with form and CANCEL SAVE
+- add button 
+	- after "There are ..."
