@@ -1,3 +1,5 @@
+- x on edit, enter saves
+- .. on edit, focus cursor
 
 - add button 
 	- after "There are ..."

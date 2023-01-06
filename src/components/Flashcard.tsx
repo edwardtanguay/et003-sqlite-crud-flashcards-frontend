@@ -19,6 +19,12 @@ export const Flashcard = ({ flashcard }: IProps) => {
 		adminIsLoggedIn,
 	} = useContext(AppContext);
 
+	const handleKeyDown = (key: string, flashcard: IFlashcard) => {
+		if (key === 'Enter') {
+			handleSaveEditFlashcard(flashcard);
+		}
+	};
+
 	return (
 		<div className="flashcardWrapper">
 			{!flashcard.isBeingEdited && (
@@ -54,6 +60,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 											value={
 												flashcard.originalItem.category
 											}
+											onKeyDown={(e) => handleKeyDown(e.key, flashcard)}
 											onChange={(e) =>
 												handleFlashcardFieldChange(
 													'category',
@@ -70,6 +77,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									<div className="control">
 										<input
 											value={flashcard.originalItem.front}
+											onKeyDown={(e) => handleKeyDown(e.key, flashcard)}
 											onChange={(e) =>
 												handleFlashcardFieldChange(
 													'front',
@@ -86,6 +94,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									<div className="control">
 										<input
 											value={flashcard.originalItem.back}
+											onKeyDown={(e) => handleKeyDown(e.key, flashcard)}
 											onChange={(e) =>
 												handleFlashcardFieldChange(
 													'back',
@@ -103,14 +112,14 @@ export const Flashcard = ({ flashcard }: IProps) => {
 					{!flashcard.isBeingEdited && !flashcard.isBeingDeleted && (
 						<div className="adminArea">
 							<button
-								onClick={() => handleDeleteFlashcard(flashcard)}
-							>
-								Delete
-							</button>
-							<button
 								onClick={() => handleEditFlashcard(flashcard)}
 							>
 								Edit
+							</button>
+							<button
+								onClick={() => handleDeleteFlashcard(flashcard)}
+							>
+								Delete
 							</button>
 						</div>
 					)}
@@ -134,7 +143,9 @@ export const Flashcard = ({ flashcard }: IProps) => {
 					)}
 					{flashcard.isBeingDeleted && (
 						<div className="deleteAdminArea">
-							<div className="question">Are you sure you want to delete this flashcard?</div>
+							<div className="question">
+								Are you sure you want to delete this flashcard?
+							</div>
 							<button
 								onClick={() =>
 									handleCancelDeleteFlashcard(flashcard)
@@ -147,7 +158,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									handleConfirmDeleteFlashcard(flashcard)
 								}
 							>
-								DELETE
+								YES, DELETE
 							</button>
 						</div>
 					)}
