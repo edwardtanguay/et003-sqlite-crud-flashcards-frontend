@@ -95,40 +95,51 @@ body {
 
 	.pageFlashcards {
 		.flashcards {
-			.flashcard {
-				margin-top: 1rem;
-				max-width: 35rem;
+			.flashcardWrapper {
+				.flashcard {
+					margin-top: 1rem;
+					max-width: 35rem;
 
-				.front {
-					background-color: #222;
-					border-radius: $corner $corner 0 0;
-					padding: 1rem;
-					user-select: none;
-					cursor: pointer;
+					.front {
+						background-color: #222;
+						border-radius: $corner $corner 0 0;
+						padding: 1rem;
+						user-select: none;
+						cursor: pointer;
 
-					.category {
-						color: rgb(216, 174, 96);
+						.category {
+							color: rgb(216, 174, 96);
+						}
+					}
+
+					.back {
+						background-color: #111;
+						border-radius: 0 0 $corner $corner;
+						padding: 1rem;
+						color: rgb(228, 228, 128);
+
+						p {
+							margin: 0;
+
+							code {
+								padding: 0 .5rem;
+								color: yellow;
+								font-size: 1.1rem;
+								overflow-wrap: normal;
+								white-space: pre-wrap;
+								word-wrap: break-word;
+							}
+						}
 					}
 				}
 
-				.back {
-					background-color: #111;
+				.adminArea {
+					margin-top: -.1rem;
+					margin-left: .7rem;
+					background: #000;
 					border-radius: 0 0 $corner $corner;
-					padding: 1rem;
-					color: rgb(228, 228, 128);
-
-					p {
-						margin: 0;
-
-						code {
-							padding: 0 .5rem;
-							color: yellow;
-							font-size: 1.1rem;
-							overflow-wrap: normal;
-							white-space: pre-wrap;
-							word-wrap: break-word;
-						}
-					}
+					max-width: 32.5rem;
+					padding: .5rem;
 				}
 			}
 		}

@@ -1,9 +1,5 @@
-- .. same styling for flashcards
+.. fix bad login
 
-
-- show flashcards
-	- backend: create /flashcards route
-	- frontend: useEffect, fetch flashcards
-- delete button next to every flashcard
+- .. delete button next to every flashcard
 	- hide delete but with adminIsLoggedIn
 	- backend: create /delete/:id (http://localhost:2343/delete/234) route with authorizeUser middleware function 

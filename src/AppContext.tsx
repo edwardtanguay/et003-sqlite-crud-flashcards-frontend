@@ -108,11 +108,20 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 					withCredentials: true,
 				}
 			);
-			// setAppMessage('Sorry, credentials were incorrect, please attempt login again.');
+			setAppMessage('');
 			setAdminIsLoggedIn(true);
 			callback();
 		} catch (e: any) {
-			handleGeneralApiErrors('attemping admin login', e);
+			switch (e.code) {
+				case 'ERR_BAD_REQUEST':
+					setAppMessage(
+						'Sorry, you entered incorrect credentials. Please try again.'
+					);
+					break;
+				default:
+					handleGeneralApiErrors('attemping admin login', e);
+					break;
+			}
 			setAdminIsLoggedIn(false);
 		}
 		setPassword('');
@@ -147,7 +156,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				(m: IFlashcard) => m.id !== flashcard.id
 			);
 			setFlashcards(_flashcards);
-			setAppMessage('flashard deleted');
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':

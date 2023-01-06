@@ -40,7 +40,7 @@ export const PageLogin = () => {
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>{' '}
-					<button onClick={loginAndRedirect} type="button">
+					<button disabled={password.trim() === ''} onClick={loginAndRedirect} type="button">
 						Login
 					</button>
 				</p>
