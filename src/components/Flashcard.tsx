@@ -26,7 +26,7 @@ export const Flashcard = ({ flashcard }: IProps) => {
 						onClick={() => handleToggleFlashcard(flashcard)}
 					>
 						<span className="category">
-							{flashcard.categoryName.toUpperCase()}:
+							{flashcard.category.toUpperCase()}:
 						</span>{' '}
 						{flashcard.front}
 					</div>

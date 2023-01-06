@@ -203,10 +203,10 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
 	const handleSaveEditFlashcard = (flashcard: IFlashcard) => {
 		flashcard.isBeingEdited = false;
-		flashcard.category = 'notepadPlusPlus';  //flashcard.originalItem.category;
-		console.log(flashcard);
+		flashcard.category = flashcard.originalItem.category;
 		flashcard.front = flashcard.originalItem.front;
 		flashcard.back = flashcard.originalItem.back;
+		flashcard.backHtml = tools.convertMarkdownToHtml(flashcard.originalItem.back),
 		setFlashcards([...flashcards]);
 	};
 

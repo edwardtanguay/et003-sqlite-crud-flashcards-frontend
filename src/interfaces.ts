@@ -6,7 +6,6 @@ export interface IOriginalFlashcard {
 
 export interface IRawFlashcard extends IOriginalFlashcard {
 	id: number;
-	categoryName: string;
 }
 
 export interface IFlashcard extends IRawFlashcard {
