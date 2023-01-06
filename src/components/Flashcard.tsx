@@ -35,14 +35,40 @@ export const Flashcard = ({ flashcard }: IProps) => {
 				)}
 			</div>
 			{adminIsLoggedIn && (
-				<div className="adminArea">
-					<button onClick={() => handleDeleteFlashcard(flashcard)}>
-						Delete
-					</button>
-					<button onClick={() => handleEditFlashcard(flashcard)}>
-						Edit
-					</button>
-				</div>
+				<>
+					<div className="editArea">
+						<form>
+							<div className="row rowCategory">
+								<label>Category</label>
+								<div className="control">
+									<input type="text" />
+								</div>
+							</div>
+							<div className="row">
+								<label>Front</label>
+								<div className="control">
+									<input type="text" />
+								</div>
+							</div>
+							<div className="row">
+								<label>Back</label>
+								<div className="control">
+									<input type="text" />
+								</div>
+							</div>
+						</form>
+					</div>
+					<div className="adminArea">
+						<button
+							onClick={() => handleDeleteFlashcard(flashcard)}
+						>
+							Delete
+						</button>
+						<button onClick={() => handleEditFlashcard(flashcard)}>
+							Edit
+						</button>
+					</div>
+				</>
 			)}
 		</div>
 	);

@@ -2,7 +2,10 @@ $corner: .5rem;
 $header_color: rgb(194, 164, 107);
 $color_border_admin: #555;
 $flashcard_width: 35rem;
-$admin_color: rgb(61, 3, 3);
+$admin_color: rgb(75, 2, 2);
+$admin_color2: lighten($admin_color, 4%);
+$row_width_full: 27.5rem;
+$row_width_short: 8rem;
 
 body {
 	background-color: #333;
@@ -57,6 +60,7 @@ body {
 	h1.adminMode {
 		color: #000;
 		text-shadow: 2px 2px 10px #ccc;
+
 		span.sideIcon {
 			color: $admin_color;
 			text-shadow: 2px 2px 10px #555;
@@ -149,12 +153,51 @@ body {
 					}
 				}
 
-				.adminArea {
+				.editArea {
 					margin-top: -.1rem;
-					background: $admin_color; 
+					background: $admin_color2;
 					max-width: $flashcard_width - 1.6rem;
 					padding: .8rem;
-					display: flex;	
+
+					.row {
+						display: flex;
+						gap: .5rem;
+						margin-bottom: .3rem;
+
+						label {
+							&::after {
+								content: ': ';
+							}
+
+							width: 4.3rem;
+						}
+
+						div.control {
+							width: $row_width_full;
+
+							input {
+								width: $row_width_full;
+							}
+						}
+					}
+
+					.rowCategory {
+						div.control {
+							width: $row_width_short;
+
+							input {
+								width: $row_width_short;
+							}
+						}
+					}
+				}
+
+				.adminArea {
+					margin-top: -.1rem;
+					background: $admin_color;
+					max-width: $flashcard_width - 1.6rem;
+					padding: .8rem;
+					display: flex;
 					gap: .5rem;
 				}
 			}
