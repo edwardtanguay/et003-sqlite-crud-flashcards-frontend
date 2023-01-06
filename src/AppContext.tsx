@@ -20,7 +20,11 @@ interface IAppContext {
 	handleEditFlashcard: (flashcard: IFlashcard) => void;
 	handleCancelEditFlashcard: (flashcard: IFlashcard) => void;
 	handleSaveEditFlashcard: (flashcard: IFlashcard) => void;
-	handleFlashcardFieldChange: (fieldIdCode: string, flashcard: IFlashcard, value: string) => void;
+	handleFlashcardFieldChange: (
+		fieldIdCode: string,
+		flashcard: IFlashcard,
+		value: string
+	) => void;
 }
 
 interface IAppProvider {
@@ -128,9 +132,8 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
 					notify(
-						'Sorry, you entered incorrect credentials. Please try again.'
+						'Sorry, password was not correct. Please try again.'
 					);
-					console.log('here');
 					onFailure();
 					break;
 				default:
@@ -158,7 +161,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	};
 
 	const handleDeleteFlashcard = async (flashcard: IFlashcard) => {
-		let _appMessage = '';
 		try {
 			await axios.delete(`${backendUrl}/flashcard/${flashcard.id}`, {
 				withCredentials: true,
@@ -201,16 +203,55 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcards([...flashcards]);
 	};
 
-	const handleSaveEditFlashcard = (flashcard: IFlashcard) => {
-		flashcard.isBeingEdited = false;
-		flashcard.category = flashcard.originalItem.category;
-		flashcard.front = flashcard.originalItem.front;
-		flashcard.back = flashcard.originalItem.back;
-		flashcard.backHtml = tools.convertMarkdownToHtml(flashcard.originalItem.back),
-		setFlashcards([...flashcards]);
+	const handleSaveEditFlashcard = async (flashcard: IFlashcard) => {
+		try {
+			// save in backend
+			await axios.put(
+				`${backendUrl}/flashcard/${flashcard.id}`,
+				{
+					flashcard: {
+						category: flashcard.originalItem.category,
+						front: flashcard.originalItem.front,
+						back: flashcard.originalItem.back,
+					},
+				},
+				{
+					withCredentials: true,
+				}
+			);
+			// if it saved in backend, then update in frontend
+			flashcard.category = flashcard.originalItem.category;
+			flashcard.front = flashcard.originalItem.front;
+			flashcard.back = flashcard.originalItem.back;
+			flashcard.backHtml = tools.convertMarkdownToHtml(
+				flashcard.originalItem.back
+			);
+			setFlashcards([...flashcards]);
+			flashcard.isBeingEdited = false;
+			notify('Flashcard was saved.');
+		} catch (e: any) {
+			switch (e.code) {
+				case 'ERR_BAD_REQUEST':
+					notify(
+						'Sorry, you had been logged out. Flashcard changes were not saved.'
+					);
+					break;
+				default:
+					handleGeneralApiErrors(
+						'attemping to save changes to flashcard',
+						e
+					);
+					break;
+			}
+			setAdminIsLoggedIn(false);
+		}
 	};
 
-	const handleFlashcardFieldChange = (fieldIdCode: string, flashcard: IFlashcard, value: string) => {
+	const handleFlashcardFieldChange = (
+		fieldIdCode: string,
+		flashcard: IFlashcard,
+		value: string
+	) => {
 		flashcard.originalItem[fieldIdCode as keyof IOriginalFlashcard] = value;
 		setFlashcards([...flashcards]);
 	};
