@@ -9,6 +9,11 @@ body {
 	padding: 0 1rem;
 	animation: fadein .2s ease-in;
 
+	.toast-position {
+		right: 1.25rem !important;
+		top: .5rem !important;
+	}
+
 	@keyframes fadein {
 		from {
 			opacity: 0;
@@ -40,6 +45,9 @@ body {
 
 	h1 {
 		color: rgb(209, 168, 85);
+		font-size: 2.5rem;
+		margin-top: 1.5rem;
+		margin-bottom: .8rem;
 	}
 
 	h1.adminMode {
@@ -72,6 +80,7 @@ body {
 	nav {
 		background-color: #222;
 		padding: .5rem;
+		border-radius: .3rem;
 
 		a {
 			color: #aaa;

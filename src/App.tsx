@@ -25,6 +25,7 @@ function App() {
 				draggable
 				pauseOnHover
 				theme="dark"
+				className="toast-position"
 			/>
 			{adminIsLoggedIn ? (
 				<h1 className="adminMode">&lt;ADMIN MODE&gt;</h1>
