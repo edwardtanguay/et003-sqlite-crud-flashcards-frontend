@@ -1,7 +1,9 @@
 - .. add functionality 
 	- x backend: POST /flashcard
 	- x add button after "There are ..."
-	- .. add area above it
+	- .. add area above it, and format with all functionality
+		- x category small
+		- .. label
 	- add Enter = Add
 	- focus on add button
 

@@ -21,58 +21,61 @@ export const PageFlashcards = () => {
 			</Helmet>
 
 			{flashcardIsBeingAdded && (
-				<div className="addFlashcardArea">
-					<form>
-						<div className="row rowCategory">
-							<label>Category</label>
-							<div className="control">
-								<input
-									value={newFlashcard.category}
-									onChange={(e) =>
-										handleAddFlashcardFieldChange(
-											'category',
-											newFlashcard,
-											e.target.value
-										)
-									}
-									type="text"
-								/>
+				<>
+					<h3 className="newFlashcard">New flashcard:</h3>
+					<div className="addFlashcardArea">
+						<form>
+							<div className="row rowCategory">
+								<label>Category</label>
+								<div className="control">
+									<input
+										value={newFlashcard.category}
+										onChange={(e) =>
+											handleAddFlashcardFieldChange(
+												'category',
+												newFlashcard,
+												e.target.value
+											)
+										}
+										type="text"
+									/>
+								</div>
 							</div>
-						</div>
-						<div className="row">
-							<label>Front</label>
-							<div className="control">
-								<input
-									value={newFlashcard.front}
-									onChange={(e) =>
-										handleAddFlashcardFieldChange(
-											'front',
-											newFlashcard,
-											e.target.value
-										)
-									}
-									type="text"
-								/>
+							<div className="row">
+								<label>Front</label>
+								<div className="control">
+									<input
+										value={newFlashcard.front}
+										onChange={(e) =>
+											handleAddFlashcardFieldChange(
+												'front',
+												newFlashcard,
+												e.target.value
+											)
+										}
+										type="text"
+									/>
+								</div>
 							</div>
-						</div>
-						<div className="row">
-							<label>Back</label>
-							<div className="control">
-								<input
-									value={newFlashcard.back}
-									onChange={(e) =>
-										handleAddFlashcardFieldChange(
-											'back',
-											newFlashcard,
-											e.target.value
-										)
-									}
-									type="text"
-								/>
+							<div className="row">
+								<label>Back</label>
+								<div className="control">
+									<input
+										value={newFlashcard.back}
+										onChange={(e) =>
+											handleAddFlashcardFieldChange(
+												'back',
+												newFlashcard,
+												e.target.value
+											)
+										}
+										type="text"
+									/>
+								</div>
 							</div>
-						</div>
-					</form>
-				</div>
+						</form>
+					</div>
+				</>
 			)}
 
 			<div className="headerArea">
