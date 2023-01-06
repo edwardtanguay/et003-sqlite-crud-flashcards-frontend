@@ -1,14 +1,11 @@
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 import { Helmet } from 'react-helmet';
+import { Flashcard } from '../components/Flashcard';
 
 export const PageFlashcards = () => {
-	const {
-		appTitle,
-		adminIsLoggedIn,
-		flashcards,
-		handleDeleteFlashcard,
-	} = useContext(AppContext);
+	const { appTitle, adminIsLoggedIn, flashcards, handleDeleteFlashcard } =
+		useContext(AppContext);
 
 	return (
 		<div className="page pageFlashcards">
@@ -19,19 +16,7 @@ export const PageFlashcards = () => {
 			<div className="flashcards">
 				{flashcards.map((flashcard) => {
 					return (
-						<div className="flashcard" key={flashcard.id}>
-							<div className="front">{flashcard.front}</div>
-							<div className="back">{flashcard.back}</div>
-							{adminIsLoggedIn && (
-								<button
-									onClick={() =>
-										handleDeleteFlashcard(flashcard)
-									}
-								>
-									Delete
-								</button>
-							)}
-						</div>
+						<Flashcard key={flashcard.id} flashcard={flashcard} />
 					);
 				})}
 			</div>

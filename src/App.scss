@@ -1,3 +1,4 @@
+$corner: .5rem;
 $header_color: rgb(194, 164, 107);
 
 body {
@@ -95,14 +96,36 @@ body {
 	.pageFlashcards {
 		.flashcards {
 			.flashcard {
-				margin-bottom: 1rem;
-				background-color: #222;
-				padding: .5rem;
-				width: 25rem;
+				margin-top: 1rem;
+				max-width: 35rem;
+
+				.front {
+					background-color: #222;
+					border-radius: $corner $corner 0 0;
+					padding: 1rem;
+					user-select: none;
+					cursor: pointer;
+
+					.category {
+						color: rgb(216, 174, 96);
+					}
+				}
 
 				.back {
-					color: tomato;
-					margin-bottom: .5rem;
+					background-color: #111;
+					border-radius: 0 0 $corner $corner;
+					padding: 1rem;
+					color: rgb(228, 228, 128);
+
+					p {
+						margin: 0;
+
+						code {
+							background: #000;
+							padding: 0 .5rem;
+							color: orange;
+						}
+					}
 				}
 			}
 		}
