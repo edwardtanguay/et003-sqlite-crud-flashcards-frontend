@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { AppContext } from '../AppContext';
 import { IFlashcard } from '../interfaces';
 
@@ -18,6 +18,17 @@ export const Flashcard = ({ flashcard }: IProps) => {
 		handleCancelDeleteFlashcard,
 		adminIsLoggedIn,
 	} = useContext(AppContext);
+
+	const categoryRef = useRef() as React.RefObject<HTMLInputElement>;
+
+	const prehandleEditFlashcard = (flashcard: IFlashcard) => {
+		handleEditFlashcard(flashcard);
+		setTimeout(() => {
+			if (categoryRef.current !== null) {
+				categoryRef.current.focus();
+			}
+		},100);
+	};
 
 	const handleKeyDown = (key: string, flashcard: IFlashcard) => {
 		if (key === 'Enter') {
@@ -60,7 +71,10 @@ export const Flashcard = ({ flashcard }: IProps) => {
 											value={
 												flashcard.originalItem.category
 											}
-											onKeyDown={(e) => handleKeyDown(e.key, flashcard)}
+											ref={categoryRef}
+											onKeyDown={(e) =>
+												handleKeyDown(e.key, flashcard)
+											}
 											onChange={(e) =>
 												handleFlashcardFieldChange(
 													'category',
@@ -77,7 +91,9 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									<div className="control">
 										<input
 											value={flashcard.originalItem.front}
-											onKeyDown={(e) => handleKeyDown(e.key, flashcard)}
+											onKeyDown={(e) =>
+												handleKeyDown(e.key, flashcard)
+											}
 											onChange={(e) =>
 												handleFlashcardFieldChange(
 													'front',
@@ -94,7 +110,9 @@ export const Flashcard = ({ flashcard }: IProps) => {
 									<div className="control">
 										<input
 											value={flashcard.originalItem.back}
-											onKeyDown={(e) => handleKeyDown(e.key, flashcard)}
+											onKeyDown={(e) =>
+												handleKeyDown(e.key, flashcard)
+											}
 											onChange={(e) =>
 												handleFlashcardFieldChange(
 													'back',
@@ -112,7 +130,9 @@ export const Flashcard = ({ flashcard }: IProps) => {
 					{!flashcard.isBeingEdited && !flashcard.isBeingDeleted && (
 						<div className="adminArea">
 							<button
-								onClick={() => handleEditFlashcard(flashcard)}
+								onClick={() =>
+									prehandleEditFlashcard(flashcard)
+								}
 							>
 								Edit
 							</button>

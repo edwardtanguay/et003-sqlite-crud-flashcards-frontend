@@ -29,7 +29,7 @@ export const PageLogin = () => {
 	};
 
 	const handleKeyDown = (e: any) => {
-		if (e.keyCode === 13) {
+		if (e.key === 'Enter') {
 			loginAndReact();
 		}
 	};

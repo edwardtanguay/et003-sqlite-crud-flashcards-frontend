@@ -6,6 +6,8 @@ $admin_color: rgb(75, 2, 2);
 $admin_color2: lighten($admin_color, 4%);
 $row_width_full: 27.5rem;
 $row_width_short: 8rem;
+$flashcard_background_front: #222;
+$flashcard_background_back: #111;
 
 body {
 	background-color: #333;
@@ -123,7 +125,7 @@ body {
 					max-width: $flashcard_width;
 
 					.front {
-						background-color: #222;
+						background-color: $flashcard_background_front;
 						padding: 1rem;
 						user-select: none;
 						cursor: pointer;
@@ -134,7 +136,7 @@ body {
 					}
 
 					.back {
-						background-color: #111;
+						background-color: $flashcard_background_back;
 						padding: 1rem;
 						color: rgb(228, 228, 128);
 
@@ -158,7 +160,7 @@ body {
 
 				.editArea {
 					margin-top: 1rem;
-					background: $admin_color2;
+					background: $flashcard_background_front;
 					max-width: $flashcard_width - 1.6rem;
 					padding: .8rem;
 
@@ -180,45 +182,6 @@ body {
 
 							input {
 								width: $row_width_full;
-							}
-						}
-					}
-				}
-
-				.deleteArea {
-					margin-top: 1rem;
-					background: $admin_color2;
-					max-width: $flashcard_width - 1.6rem;
-					padding: .8rem;
-
-					.row {
-						display: flex;
-						gap: .5rem;
-						margin-bottom: .3rem;
-
-						label {
-							&::after {
-								content: ': ';
-							}
-
-							width: 4.3rem;
-						}
-
-						div.control {
-							width: $row_width_full;
-
-							input {
-								width: $row_width_full;
-							}
-						}
-					}
-
-					.rowCategory {
-						div.control {
-							width: $row_width_short;
-
-							input {
-								width: $row_width_short;
 							}
 						}
 					}
