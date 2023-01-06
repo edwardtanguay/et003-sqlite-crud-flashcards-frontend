@@ -81,6 +81,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		console.log(`ERROR "${currentAction}": ${e.code}`);
 	};
 
+	const closeAllFlashcards = () => {
+		flashcards.forEach((flashcard) => {
+			flashcard.isOpen = false;
+		});
+	};
+
 	const loadFlashcards = async () => {
 		let _flashcards: IFlashcard[] = [];
 		const rawFlashcards = (await axios.get(`${backendUrl}/flashcards`))
@@ -150,6 +156,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			);
 			setAdminIsLoggedIn(true);
 			onSuccess();
+			closeAllFlashcards();
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
@@ -174,6 +181,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 					})
 				).data;
 				setAdminIsLoggedIn(false);
+				closeAllFlashcards();
 			} catch (e: any) {
 				handleGeneralApiErrors('attemping logout', e);
 			}
