@@ -60,7 +60,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [flashcards, setFlashcards] = useState<IFlashcard[]>([]);
 	const [systemErrorExists, setSystemErrorExists] = useState(false);
 	const [newFlashcard, setNewFlashcard] =
-		useState<IOriginalFlashcard>(blankNewFlashcard);
+		useState<IOriginalFlashcard>({ ...blankNewFlashcard });
 	const [flashcardIsBeingAdded, setFlashcardIsBeingAdded] = useState(false);
 
 	const handleGeneralApiErrors = (currentAction: string, e: any) => {
@@ -300,9 +300,10 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	};
 
 	const handleCancelAddFlashcard = () => {
+		setNewFlashcard({ ...blankNewFlashcard });
 		setFlashcardIsBeingAdded(false);
 	};
- 
+
 	return (
 		<AppContext.Provider
 			value={{
