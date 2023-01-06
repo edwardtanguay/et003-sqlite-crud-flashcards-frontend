@@ -11,7 +11,9 @@ body {
 
 	.toast-position {
 		right: 1.25rem !important;
-		top: .5rem !important;
+		top: .4rem !important;
+		--toastify-color-progress-dark: rgb(202, 155, 68);
+		--toastify-color-dark: #222;
 	}
 
 	@keyframes fadein {
