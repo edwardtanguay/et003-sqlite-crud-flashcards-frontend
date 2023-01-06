@@ -17,23 +17,27 @@ export const Flashcard = ({ flashcard }: IProps) => {
 
 	return (
 		<div className="flashcardWrapper">
-			<div className="flashcard">
-				<div
-					className="front"
-					onClick={() => handleToggleFlashcard(flashcard)}
-				>
-					<span className="category">
-						{flashcard.categoryName.toUpperCase()}:
-					</span>{' '}
-					{flashcard.front}
-				</div>
-				{flashcard.isOpen && (
+			{!flashcard.isBeingEdited && (
+				<div className="flashcard">
 					<div
-						className="back"
-						dangerouslySetInnerHTML={{ __html: flashcard.backHtml }}
-					></div>
-				)}
-			</div>
+						className="front"
+						onClick={() => handleToggleFlashcard(flashcard)}
+					>
+						<span className="category">
+							{flashcard.categoryName.toUpperCase()}:
+						</span>{' '}
+						{flashcard.front}
+					</div>
+					{flashcard.isOpen && (
+						<div
+							className="back"
+							dangerouslySetInnerHTML={{
+								__html: flashcard.backHtml,
+							}}
+						></div>
+					)}
+				</div>
+			)}
 			{adminIsLoggedIn && (
 				<>
 					{flashcard.isBeingEdited && (
@@ -42,19 +46,30 @@ export const Flashcard = ({ flashcard }: IProps) => {
 								<div className="row rowCategory">
 									<label>Category</label>
 									<div className="control">
-										<input type="text" />
+										<input
+											value={
+												flashcard.originalItem.category
+											}
+											type="text"
+										/>
 									</div>
 								</div>
 								<div className="row">
 									<label>Front</label>
 									<div className="control">
-										<input type="text" />
+										<input
+											value={flashcard.originalItem.front}
+											type="text"
+										/>
 									</div>
 								</div>
 								<div className="row">
 									<label>Back</label>
 									<div className="control">
-										<input type="text" />
+										<input
+											value={flashcard.originalItem.back}
+											type="text"
+										/>
 									</div>
 								</div>
 							</form>

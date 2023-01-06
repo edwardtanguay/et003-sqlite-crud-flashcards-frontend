@@ -70,6 +70,11 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 								rawFlashcard.back
 							),
 							isBeingEdited: false,
+							originalItem: {
+								category: rawFlashcard.category,
+								front: rawFlashcard.front,
+								back: rawFlashcard.back,
+							}
 						};
 						_flashcards.push(_flashcard);
 					});
