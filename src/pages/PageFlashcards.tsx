@@ -4,15 +4,17 @@ import { Helmet } from 'react-helmet';
 import { Flashcard } from '../components/Flashcard';
 
 export const PageFlashcards = () => {
-	const { appTitle, adminIsLoggedIn, flashcards, handleDeleteFlashcard } =
-		useContext(AppContext);
+	const { appTitle, adminIsLoggedIn, flashcards } = useContext(AppContext);
 
 	return (
 		<div className="page pageFlashcards">
 			<Helmet>
 				<title>{appTitle} - Flashcards</title>
 			</Helmet>
-			<h3>There are {flashcards.length} flashcards:</h3>
+			<div className="headerArea">
+				<h3>There are {flashcards.length} flashcards:</h3>
+				{adminIsLoggedIn && <button>Add Flashcard</button>}
+			</div>
 			<div className="flashcards">
 				{flashcards.map((flashcard) => {
 					return (

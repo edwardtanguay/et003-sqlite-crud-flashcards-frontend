@@ -1,6 +1,6 @@
 - .. add functionality 
-	- .. backend: POST /flashcard
-	- add button after "There are ..."
+	- x backend: POST /flashcard
+	- .. add button after "There are ..."
 	- add area above it
 
 - backend: fix documentation root route

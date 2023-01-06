@@ -118,6 +118,17 @@ body {
 	}
 
 	.pageFlashcards {
+		.headerArea {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: $flashcard_width;
+
+			button {
+				height: fit-content;
+			}
+		}
+
 		.flashcards {
 			.flashcardWrapper {
 				.flashcard {
@@ -151,6 +162,7 @@ body {
 								white-space: pre-wrap;
 								word-wrap: break-word;
 							}
+
 							a {
 								color: orange;
 							}
@@ -205,6 +217,7 @@ body {
 					gap: .5rem;
 					justify-content: flex-end;
 				}
+
 				.deleteAdminArea {
 					margin-top: -.1rem;
 					background: $admin_color;
@@ -213,8 +226,9 @@ body {
 					display: flex;
 					gap: .5rem;
 					justify-content: flex-end;
+
 					button {
-						 height: fit-content;
+						height: fit-content;
 					}
 				}
 			}
