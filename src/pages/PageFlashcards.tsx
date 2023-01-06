@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { AppContext } from '../AppContext';
 import { Helmet } from 'react-helmet';
 import { Flashcard } from '../components/Flashcard';
@@ -14,6 +14,17 @@ export const PageFlashcards = () => {
 		handleCancelAddFlashcard,
 		handleAddFlashcard,
 	} = useContext(AppContext);
+
+	const newCategoryRef = useRef() as React.RefObject<HTMLInputElement>;
+
+	const prehandleAddFlashcard = () => {
+		handleAddFlashcard();
+		setTimeout(() => {
+			if (newCategoryRef.current !== null) {
+				newCategoryRef.current.focus();
+			}
+		},100);
+	};
 
 	return (
 		<div className="page pageFlashcards">
@@ -31,6 +42,7 @@ export const PageFlashcards = () => {
 								<div className="control">
 									<input
 										value={newFlashcard.category}
+										ref={newCategoryRef}
 										onChange={(e) =>
 											handleAddFlashcardFieldChange(
 												'category',
@@ -94,7 +106,7 @@ export const PageFlashcards = () => {
 			<div className="headerArea">
 				<h3>There are {flashcards.length} flashcards:</h3>
 				{adminIsLoggedIn && !flashcardIsBeingAdded && (
-					<button onClick={handleAddFlashcard}>Add Flashcard</button>
+					<button onClick={prehandleAddFlashcard}>Add Flashcard</button>
 				)}
 			</div>
 			<div className="flashcards">

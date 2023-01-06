@@ -5,10 +5,15 @@
 		- x category small
 		- x label
 		- x remove add button
-		- .. bottom editing are
+		- x bottom editing are
+		- x cursor focus
+		- .. cancel actually clears
+		- save button handle
 	- add Enter = Add
 	- focus on add button
 
+
+- make sure cancel resets all values on edit
 - padding on edit are like on add
 - list last-added first (reverse id order)
 - backend: fix documentation root route

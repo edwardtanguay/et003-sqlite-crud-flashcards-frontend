@@ -299,7 +299,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcardIsBeingAdded(true);
 	};
 
-	const handleCancelAddFlashcard = (flashcard: IFlashcard) => {
+	const handleCancelAddFlashcard = () => {
 		setFlashcardIsBeingAdded(false);
 	};
  
