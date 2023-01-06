@@ -13,6 +13,7 @@ export const PageFlashcards = () => {
 		handleAddFlashcardFieldChange,
 		handleCancelAddFlashcard,
 		handleAddFlashcard,
+handleSaveNewFlashcard
 	} = useContext(AppContext);
 
 	const newCategoryRef = useRef() as React.RefObject<HTMLInputElement>;
@@ -96,6 +97,7 @@ export const PageFlashcards = () => {
 							Cancel
 						</button>
 						<button
+						onClick={handleSaveNewFlashcard}
 						>
 							Save	
 						</button>

@@ -7,8 +7,8 @@
 		- x remove add button
 		- x bottom editing are
 		- x cursor focus
-		- .. cancel actually clears
-		- save button handle
+		- x cancel actually clears
+		- .. save button handle
 	- add Enter = Add
 	- focus on add button
 
@@ -16,4 +16,5 @@
 - make sure cancel resets all values on edit
 - padding on edit are like on add
 - list last-added first (reverse id order)
+- responsive
 - backend: fix documentation root route

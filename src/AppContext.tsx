@@ -41,6 +41,7 @@ interface IAppContext {
 	) => void;
 	handleAddFlashcard: () => void;
 	handleCancelAddFlashcard: () => void;
+	handleSaveNewFlashcard: () => void;
 }
 
 interface IAppProvider {
@@ -59,8 +60,9 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [appMessage, setAppMessage] = useState('');
 	const [flashcards, setFlashcards] = useState<IFlashcard[]>([]);
 	const [systemErrorExists, setSystemErrorExists] = useState(false);
-	const [newFlashcard, setNewFlashcard] =
-		useState<IOriginalFlashcard>({ ...blankNewFlashcard });
+	const [newFlashcard, setNewFlashcard] = useState<IOriginalFlashcard>({
+		...blankNewFlashcard,
+	});
 	const [flashcardIsBeingAdded, setFlashcardIsBeingAdded] = useState(false);
 
 	const handleGeneralApiErrors = (currentAction: string, e: any) => {
@@ -304,6 +306,10 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		setFlashcardIsBeingAdded(false);
 	};
 
+	const handleSaveNewFlashcard = () => {
+		console.log('...saving')
+	}
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -329,6 +335,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleAddFlashcardFieldChange,
 				handleAddFlashcard,
 				handleCancelAddFlashcard,
+				handleSaveNewFlashcard,
 			}}
 		>
 			{children}
