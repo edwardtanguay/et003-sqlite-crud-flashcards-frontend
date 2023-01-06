@@ -1,5 +1,3 @@
-.. fix bad login
-
-- .. delete button next to every flashcard
-	- hide delete but with adminIsLoggedIn
-	- backend: create /delete/:id (http://localhost:2343/delete/234) route with authorizeUser middleware function 
+- replace custom messages with toaster
+	- system error keeps current message notification
+	- fix menu bar with toaster

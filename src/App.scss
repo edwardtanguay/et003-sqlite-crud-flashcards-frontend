@@ -1,5 +1,6 @@
 $corner: .5rem;
 $header_color: rgb(194, 164, 107);
+$color_border_admin: #555;
 
 body {
 	background-color: #333;
@@ -138,8 +139,11 @@ body {
 					margin-left: .7rem;
 					background: #000;
 					border-radius: 0 0 $corner $corner;
-					max-width: 32.5rem;
-					padding: .5rem;
+					max-width: 31.8rem;
+					padding: .8rem;
+					border-left: 1px solid $color_border_admin;
+					border-bottom: 1px solid $color_border_admin;
+					border-right: 1px solid $color_border_admin;
 				}
 			}
 		}
