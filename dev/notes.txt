@@ -1,6 +1,9 @@
 - .. add functionality 
 	- x backend: POST /flashcard
-	- .. add button after "There are ..."
-	- add area above it
+	- x add button after "There are ..."
+	- .. add area above it
+	- add Enter = Add
+	- focus on add button
 
+- list last-added first (reverse id order)
 - backend: fix documentation root route

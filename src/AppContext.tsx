@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createContext } from 'react';
 import axios from 'axios';
-import { IFlashcard, IOriginalFlashcard, IRawFlashcard } from './interfaces';
+import { blankNewFlashcard, IFlashcard, IOriginalFlashcard, IRawFlashcard } from './interfaces';
 import * as tools from './tools';
 import { toast } from 'react-toastify';
 
@@ -27,6 +27,7 @@ interface IAppContext {
 		flashcard: IFlashcard,
 		value: string
 	) => void;
+	newFlashcard: IOriginalFlashcard;
 }
 
 interface IAppProvider {
@@ -45,6 +46,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 	const [appMessage, setAppMessage] = useState('');
 	const [flashcards, setFlashcards] = useState<IFlashcard[]>([]);
 	const [systemErrorExists, setSystemErrorExists] = useState(false);
+	const [newFlashcard, setNewFlashcard] = useState<IOriginalFlashcard>(blankNewFlashcard);
 
 	const handleGeneralApiErrors = (currentAction: string, e: any) => {
 		let _appMessage = '';
@@ -134,9 +136,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
-					notify(
-						'Your password was not correct. Please try again.'
-					);
+					notify('Your password was not correct. Please try again.');
 					onFailure();
 					break;
 				default:
@@ -291,6 +291,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				handleFlashcardFieldChange,
 				handleConfirmDeleteFlashcard,
 				handleCancelDeleteFlashcard,
+				newFlashcard,
 			}}
 		>
 			{children}

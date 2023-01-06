@@ -15,3 +15,9 @@ export interface IFlashcard extends IRawFlashcard {
 	isBeingDeleted: boolean;
 	originalItem: IOriginalFlashcard;
 }
+
+export const blankNewFlashcard: IOriginalFlashcard = {
+	category: '',
+	front: '',
+	back: ''
+}
