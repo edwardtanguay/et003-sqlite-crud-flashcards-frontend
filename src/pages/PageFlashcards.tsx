@@ -11,6 +11,7 @@ export const PageFlashcards = () => {
 		newFlashcard,
 		flashcardIsBeingAdded,
 		handleAddFlashcardFieldChange,
+		handleCancelAddFlashcard,
 		handleAddFlashcard,
 	} = useContext(AppContext);
 
@@ -75,12 +76,24 @@ export const PageFlashcards = () => {
 							</div>
 						</form>
 					</div>
+
+					<div className="newFlashcardAdminArea">
+						<button
+								onClick={handleCancelAddFlashcard}
+						>
+							Cancel
+						</button>
+						<button
+						>
+							Save	
+						</button>
+					</div>
 				</>
 			)}
 
 			<div className="headerArea">
 				<h3>There are {flashcards.length} flashcards:</h3>
-				{adminIsLoggedIn && (
+				{adminIsLoggedIn && !flashcardIsBeingAdded && (
 					<button onClick={handleAddFlashcard}>Add Flashcard</button>
 				)}
 			</div>

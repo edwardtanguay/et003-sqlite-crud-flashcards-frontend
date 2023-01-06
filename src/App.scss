@@ -3,6 +3,7 @@ $header_color: rgb(194, 164, 107);
 $color_border_admin: #555;
 $flashcard_width: 35rem;
 $admin_color: rgb(75, 2, 2);
+$admin_add_color: rgb(13, 95, 13);
 $admin_color2: lighten($admin_color, 4%);
 $row_width_full: 27.5rem;
 $row_width_short: 8rem;
@@ -123,6 +124,7 @@ body {
 			justify-content: space-between;
 			align-items: center;
 			width: $flashcard_width;
+			margin-bottom: -1rem;
 
 			button {
 				height: fit-content;
@@ -131,7 +133,8 @@ body {
 
 		h3.newFlashcard {
 			margin-bottom: -.5rem;
-			color: $header_color;
+			color: green;
+			text-shadow: 1px 1px 10px #111;
 		}
 
 		.addFlashcardArea {
@@ -139,7 +142,7 @@ body {
 			margin-bottom: 1rem;
 			background: $flashcard_background_front;
 			max-width: $flashcard_width - 1.6rem;
-			padding: .8rem;
+			padding: 1.2rem .7rem .9rem .9rem;
 
 			.row {
 				display: flex;
@@ -170,6 +173,16 @@ body {
 					}
 				}
 			}
+		}
+
+		.newFlashcardAdminArea {
+			margin-top: -1rem;
+			background: $admin_add_color;
+			max-width: $flashcard_width - 1.6rem;
+			padding: .8rem;
+			display: flex;
+			gap: .5rem;
+			justify-content: flex-end;
 		}
 
 		.flashcards {

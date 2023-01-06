@@ -3,9 +3,12 @@
 	- x add button after "There are ..."
 	- .. add area above it, and format with all functionality
 		- x category small
-		- .. label
+		- x label
+		- x remove add button
+		- .. bottom editing are
 	- add Enter = Add
 	- focus on add button
 
+- padding on edit are like on add
 - list last-added first (reverse id order)
 - backend: fix documentation root route

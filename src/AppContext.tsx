@@ -40,6 +40,7 @@ interface IAppContext {
 		value: string
 	) => void;
 	handleAddFlashcard: () => void;
+	handleCancelAddFlashcard: () => void;
 }
 
 interface IAppProvider {
@@ -296,8 +297,12 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 
 	const handleAddFlashcard = () => {
 		setFlashcardIsBeingAdded(true);
-	}
+	};
 
+	const handleCancelAddFlashcard = (flashcard: IFlashcard) => {
+		setFlashcardIsBeingAdded(false);
+	};
+ 
 	return (
 		<AppContext.Provider
 			value={{
@@ -322,6 +327,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				flashcardIsBeingAdded,
 				handleAddFlashcardFieldChange,
 				handleAddFlashcard,
+				handleCancelAddFlashcard,
 			}}
 		>
 			{children}
