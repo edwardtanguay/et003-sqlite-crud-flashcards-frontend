@@ -209,11 +209,12 @@ body {
 
 						p {
 							margin: 0;
+							font-size: 1rem;
 
 							code {
-								padding: 0 .5rem;
+								padding: 0;
+								background-color: #292929;
 								color: yellow;
-								font-size: 1.1rem;
 								overflow-wrap: normal;
 								white-space: pre-wrap;
 								word-wrap: break-word;
@@ -230,7 +231,7 @@ body {
 					margin-top: 1rem;
 					background: $flashcard_background_front;
 					max-width: $flashcard_width - 1.6rem;
-					padding: .8rem;
+					padding: 1.2rem .7rem .9rem .9rem;
 
 					.row {
 						display: flex;
@@ -249,14 +250,13 @@ body {
 							width: $row_width_full;
 
 							input {
-								width: $row_width_full;
+								width: 95%;
 							}
 						}
 					}
 
 					.rowCategory {
 						div.control {
-
 							input {
 								width: 8rem;
 							}

@@ -1,4 +1,4 @@
-- .. make sure cancel resets all values on edit
-- padding on edit are like on add
-- responsive
+- x make sure cancel resets all values on edit
+- x padding on edit are like on add
+- .. responsive
 - backend: fix documentation root route
