@@ -21,6 +21,9 @@ export const PageLogin = () => {
 				navigate('/');
 			},
 			() => {
+				// notify(
+				// 	'Sorry, you entered incorrect credentials. Please try again.'
+				// );
 				if (passwordRef.current !== null) {
 					passwordRef.current.focus();
 				}

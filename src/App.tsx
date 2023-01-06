@@ -6,17 +6,26 @@ import { PageFlashcards } from './pages/PageFlashcards';
 import { PageLogin } from './pages/PageLogin';
 import { PageLogout } from './pages/PageLogout';
 import { BiLoader } from 'react-icons/bi';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-	const {
-		appMessage,
-		deleteAppMessage,
-		adminIsLoggedIn,
-		systemErrorExists,
-		flashcards,
-	} = useContext(AppContext);
+	const { appMessage, adminIsLoggedIn, systemErrorExists, flashcards } =
+		useContext(AppContext);
 	return (
 		<div className="App">
+			<ToastContainer
+				position="top-right"
+				autoClose={2000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 			{adminIsLoggedIn ? (
 				<h1 className="adminMode">&lt;ADMIN MODE&gt;</h1>
 			) : (
@@ -33,9 +42,6 @@ function App() {
 								</span>
 							)}
 						</div>{' '}
-						{!systemErrorExists && (
-							<button onClick={deleteAppMessage}>X</button>
-						)}
 					</div>
 				</div>
 			)}
@@ -43,7 +49,9 @@ function App() {
 			{!systemErrorExists && (
 				<>
 					{flashcards.length === 0 ? (
-						<div className="siteLoading"><BiLoader className="spinner" /></div>
+						<div className="siteLoading">
+							<BiLoader className="spinner" />
+						</div>
 					) : (
 						<>
 							<nav>

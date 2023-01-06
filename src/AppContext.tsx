@@ -3,6 +3,7 @@ import { createContext } from 'react';
 import axios from 'axios';
 import { IFlashcard, IRawFlashcard } from './interfaces';
 import * as tools from './tools';
+import { toast } from 'react-toastify';
 
 interface IAppContext {
 	appTitle: string;
@@ -11,7 +12,6 @@ interface IAppContext {
 	password: string;
 	setPassword: (password: string) => void;
 	appMessage: string;
-	deleteAppMessage: () => void;
 	adminIsLoggedIn: boolean;
 	flashcards: IFlashcard[];
 	handleDeleteFlashcard: (flashcard: IFlashcard) => void;
@@ -24,6 +24,7 @@ interface IAppProvider {
 }
 
 const backendUrl = 'http://localhost:3515';
+const notify = (message: string) => toast(message);
 
 export const AppContext = createContext<IAppContext>({} as IAppContext);
 
@@ -94,7 +95,10 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		})();
 	}, []);
 
-	const loginAsAdmin = async (onSuccess: () => void, onFailure: () => void) => {
+	const loginAsAdmin = async (
+		onSuccess: () => void,
+		onFailure: () => void
+	) => {
 		try {
 			await axios.post(
 				`${backendUrl}/login`,
@@ -108,15 +112,15 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 					withCredentials: true,
 				}
 			);
-			setAppMessage('');
 			setAdminIsLoggedIn(true);
 			onSuccess();
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
-					setAppMessage(
+					notify(
 						'Sorry, you entered incorrect credentials. Please try again.'
 					);
+					console.log('here');
 					onFailure();
 					break;
 				default:
@@ -126,10 +130,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 			setAdminIsLoggedIn(false);
 		}
 		setPassword('');
-	};
-
-	const deleteAppMessage = () => {
-		setAppMessage('');
 	};
 
 	const logoutAsAdmin = () => {
@@ -160,7 +160,7 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 		} catch (e: any) {
 			switch (e.code) {
 				case 'ERR_BAD_REQUEST':
-					setAppMessage(
+					notify(
 						'Sorry, you had been logged out. Please log in again.'
 					);
 					break;
@@ -189,7 +189,6 @@ export const AppProvider: React.FC<IAppProvider> = ({ children }) => {
 				password,
 				setPassword,
 				appMessage,
-				deleteAppMessage,
 				adminIsLoggedIn,
 				flashcards,
 				handleDeleteFlashcard,

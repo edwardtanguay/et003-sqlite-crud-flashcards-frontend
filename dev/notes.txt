@@ -1,5 +1,5 @@
-- replace custom messages with toaster
-	- system error keeps current message notification
+- .. replace custom messages with toaster
+	- system error keeps current message notification: change appMessage to systemMessage
 	- fix menu bar with toaster
 
 - edit button
